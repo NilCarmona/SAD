@@ -1,4 +1,4 @@
-package P1;
+package P1.NoMVC;
 
 public class TeclasEscape {
 //VALORS LLEGITS DE LA TECLA ESCAPE 

@@ -1,25 +1,19 @@
-package P1;
-//import java.util.Observable;
+package P1.NoMVC;
 import java.io.*;
 
 
-public class Line /*extends Observable*/{
+public class Line {  //ha de tenir el estat,ser independent de la vista, per tant no pot tenir cap metode que faci referencia a la vista (system.out.print)
     //ATRIBUTS
     private StringBuilder frase;
     private int cursorPosition;
     private int numLetters;
-    //Console console;
-
     
     //CONSTRUCTOR
     public Line(){
         frase= new StringBuilder();// frase inicial buida
         cursorPosition = 0;
-        //console = new Console();
-        //this.addObserver(console);
-
     }
-
+    
     public void moveRight() throws IOException{ 
         if(cursorPosition < numLetters){
             System.out.print("\u001b[1C");//Movem cursor a la dreta
@@ -33,7 +27,7 @@ public class Line /*extends Observable*/{
 		this.cursorPosition = cursorPosition-1;
     }
 
-    public void moveToStart(){
+    public void home(){
         while(cursorPosition!=0){
             moveLeft();
         }
@@ -46,7 +40,7 @@ public class Line /*extends Observable*/{
             try {
                 moveRight();
             } catch (Exception e) {
-                // TODO: handle exception
+                
             }           
         }
         //System.out.print("\u001b["+numLetters+"C"); //Movem el cursor a la dreta 'numLetters' cops
@@ -57,7 +51,7 @@ public class Line /*extends Observable*/{
         frase.insert(cursorPosition,letter);
 	}
 
-    public void backspace(){
+    public void backSpace(){
         frase.deleteCharAt(cursorPosition-1);
         cursorPosition --;
 	}
