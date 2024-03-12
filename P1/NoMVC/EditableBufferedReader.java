@@ -8,7 +8,7 @@ public class EditableBufferedReader extends BufferedReader{
      private static final int LEFT = 'D';
      private static final int HOME = 'H';
      private static final int END = 'F';
-     //private static final int SUPR = '3';
+     private static final int SUPR = '3';
      private static final int INS = '2';
      private static final int BKSP = 127;
     //ATRIBUTS
@@ -158,7 +158,7 @@ public class EditableBufferedReader extends BufferedReader{
    
     public int read() throws IOException{
             setRaw();
-              StringBuilder stri = new StringBuilder();
+            StringBuilder stri = new StringBuilder();
         try{
             
         stri.append((char)super.read());
@@ -185,9 +185,10 @@ public class EditableBufferedReader extends BufferedReader{
             int key = 0;
             while (key != '\r'){
                 key = this.read();
-                    switch(key) {
+                switch(key) {
                     case -RIGHT: 
                     line.moveRight();
+                    System.out.print("dreta");
                     case -LEFT: 
                     line.moveLeft();
                     break;
@@ -200,9 +201,9 @@ public class EditableBufferedReader extends BufferedReader{
                     case -INS: //UNICAMENTE MODO? NO LETRA?
                     line.insert((char) key);;
                     break;
-                    //case SUPR:
-                    //line.supr();
-                    //break;
+                    case SUPR:
+                    line.supr();
+                    break;
                     case BKSP: 
                     line.backSpace();
                     break;
@@ -222,32 +223,33 @@ public class EditableBufferedReader extends BufferedReader{
 
     public void setRaw() throws IOException{ //Las teclas de escape se leen como bytes individuales.No se produce ninguna traducción de caracteres.
         try{
-            Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty -echo raw </dev/tty" });//EN LINUX
+            //Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty -echo raw </dev/tty" });//EN LINUX
             //EN WINDOWS NO ES POSIBLE ACTUALMENT POR SEGURIDAD EN LA API
-            //String[] com = {"C:/Archivos de Programa/Java/jdk-21/bin/jshell", "-c", "stty -echo raw </dev/tty"}; 
-            //Process process = Runtime.getRuntime().exec(com); 
-            //process.waitFor();// PARA QUE ESPERE A QUE TERMINE EL PROCESO, VER LETRA A LETRA
+            String[] com = {"C:/Archivos de Programa/Java/jdk-21/bin/jshell", "-c", "stty -echo raw </dev/tty"}; 
+            Process process = Runtime.getRuntime().exec(com); 
+            process.waitFor();// PARA QUE ESPERE A QUE TERMINE EL PROCESO, VER LETRA A LETRA
         }catch(IOException Io){
             Io.printStackTrace();
-        /*{catch (InterruptedException e) {
-            e.printStackTrace();*/
+        }catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
+    
 
     public void unsetRaw() throws IOException{  // Las teclas de escape se interpretan como comandos especiales. Se produce la traducción de caracteres.
         try{
-            Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty echo cooked </dev/tty" }); //EN LINUX
+            //Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty echo cooked </dev/tty" }); //EN LINUX
             //EN WINDOWS NO ES POSIBLE ACTUALMENT POR SEGURIDAD EN LA API
-            //String[] com = {"C:/Archivos de Programa/Java/jdk-21/bin/jshell", "-c", "stty -cooked raw </dev/tty"}; 
-            //Process process = Runtime.getRuntime().exec(com);
-           // process.waitFor();// PARA QUE ESPERE A QUE TERMINE EL PROCESO, VER LETRA A LETRA
+            String[] com = {"C:/Archivos de Programa/Java/jdk-21/bin/jshell", "-c", "stty -cooked raw </dev/tty"}; 
+            Process process = Runtime.getRuntime().exec(com);
+           process.waitFor();// PARA QUE ESPERE A QUE TERMINE EL PROCESO, VER LETRA A LETRA
         }catch(IOException Io){
             Io.printStackTrace();
-        /*}catch (InterruptedException e) {
+        }catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
     }
-    }
+    
 }
 
 
