@@ -1,38 +1,19 @@
-public int readCharacter() {
-    int caracter = super.read();
-  
-    // Using a do-while loop for letters
-    if (caracter > 64) {
-      do {
-        switch (caracter) {
-          case Keys.INSERT:
-            caracter = Keys.xINSERT;
-            break;
-          case Keys.RIGHT:
-            caracter = Keys.xRIGHT;
-            break;
-          case Keys.LEFT:
-            caracter = Keys.xLEFT;
-            break;
-          case Keys.INICIO:
-            caracter = Keys.xINICIO;
-            break;
-          case Keys.FIN:
-            caracter = Keys.xFIN;
-            break;
-        }
-        caracter = super.read();
-      } while (caracter > 64);
-    } else { // Using an if-else for numbers
-      if (caracter == Keys.INSERT) {
-        caracter = Keys.xINSERT;
-      } else if (caracter == Keys.SUPR) {
-        caracter = Keys.xSUPR;
-        // Ignore the "~"
-        super.read();
-      }
-    }
-  
-    return caracter;
-  }
+Map<Integer, Integer> keyMap = new HashMap<>();
+keyMap.put(Keys.INSERT, Keys.xINSERT);
+keyMap.put(Keys.RIGHT, Keys.xRIGHT);
+keyMap.put(Keys.LEFT, Keys.xLEFT);
+keyMap.put(Keys.INICIO, Keys.xINICIO);
+keyMap.put(Keys.FIN, Keys.xFIN);
+keyMap.put(Keys.SUPR, Keys.xSUPR);
+
+caracter = super.read();
+if (keyMap.containsKey(caracter)) {
+    caracter = keyMap.get(caracter);
+}
+
+if (caracter <= 64) { // Si leemos un número
+    super.read(); // Obviamos el "~"
+}
+
+return caracter;
   
