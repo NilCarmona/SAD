@@ -1,3 +1,4 @@
+package P1_1;
 interface Keys {
 
     // Codificacions de les sequencies d'escape 
@@ -21,11 +22,11 @@ interface Keys {
     public final static int FIN = 70; //^[[F
     public final static int INICIO = 72; //^[[H
     public final static int INSERT = 50; //^[[2~
-    //public final static int AVPAG = 54; //^[[6~
-    //public final static int REPAG = 53; //^[[5~
+    public final static int AVPAG = 54; //^[[6~
+    public final static int REPAG = 53; //^[[5~
     public final static int SUPR = 51;//^[[3~
     //public final static int ESTILO = 101;//^[e
-
+    public final static int EXIT = 101; //^[e
 
 
     // Conversions de les sequencies d'escape
@@ -39,8 +40,8 @@ interface Keys {
     public final static int xAVPAG = -7;
     public final static int xREPAG = -8;
     public final static int xSUPR = -9;
-    public final static int xESTILO = -10;
+    //public final static int xESTILO = -10;
     public final static int xUP = -11;
     public final static int xDOWN = -12;
-
+    public final static int xEXIT = -13;
 }

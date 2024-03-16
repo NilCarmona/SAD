@@ -3,7 +3,7 @@ import java.io.*;
 
 
 public class EditableBufferedReader extends BufferedReader{
-     //Constants
+    //Constants
      private static final int RIGHT = 'C';
      private static final int LEFT = 'D';
      private static final int HOME = 'H';
@@ -25,13 +25,13 @@ public class EditableBufferedReader extends BufferedReader{
     //METODES 
     //El metodo read tiene que modificar el read de BufferedReader para que las teclas de escape sean reconocidas
     @Override //Utilizar parsing, ver clase Scanner y sus problemas
-/*    public int read() throws IOException {  
+   public int read() throws IOException {  
         //La clase escaner tiene implementada la interfaz iterable, por lo que se puede recorrer con un for each.      
-        /*Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         //ESTO IRIA EN EL MAIN:
-        String nombre = scanner.nextLine();
-        scanner.close(); // Cerramos el scanner
-        System.out.println(nombre);
+        //String nombre = scanner.nextLine();
+        //scanner.close(); // Cerramos el scanner
+        //System.out.println(nombre);
 
         int caracter = 0;
         setRaw(); //Queremos que el terminal este en modo raw.
@@ -154,73 +154,8 @@ public class EditableBufferedReader extends BufferedReader{
     //unsetRaw();
     return line.toString();  
 } 
-*/
+
    
-    public int read() throws IOException{
-            setRaw();
-            StringBuilder stri = new StringBuilder();
-        try{
-            
-        stri.append((char)super.read());
-        
-            switch(stri.toString()) {
-                case "\033[2~":
-                case "\033[3~": 
-                case "\033[C": 
-                case "\033[D":  
-                case "\033[F":   
-                case "\033[H":  return -stri.charAt(2);
-                default:        return  stri.charAt(stri.length() - 1);
-            }
-        }catch (IOException e){
-            throw e;
-        }
-    }
-
-    @Override
-    public String readLine() throws IOException{
-        try{
-            setRaw();
-            Line line = new Line();
-            int key = 0;
-            while (key != '\r'){
-                key = this.read();
-                switch(key) {
-                    case -RIGHT: 
-                    line.moveRight();
-                    System.out.print("dreta");
-                    case -LEFT: 
-                    line.moveLeft();
-                    break;
-                    case -HOME: 
-                    line.home();
-                    break;
-                    case -END: 
-                    line.moveToEnd();
-                    break;
-                    case -INS: //UNICAMENTE MODO? NO LETRA?
-                    line.insert((char) key);;
-                    break;
-                    case SUPR:
-                    line.supr();
-                    break;
-                    case BKSP: 
-                    line.backSpace();
-                    break;
-                    default:
-                    line.write((char)key);
-                    System.out.print((char)key);// para ver si se va escribiendo caracter a caracter, en el process (letra a letra)
-                    break;
-                }
-            }
-            return line.toString();
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            unsetRaw();
-        }
-    }
-
     public void setRaw() throws IOException{ //Las teclas de escape se leen como bytes individuales.No se produce ninguna traducción de caracteres.
         try{
             //Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty -echo raw </dev/tty" });//EN LINUX
