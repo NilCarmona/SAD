@@ -1,14 +1,13 @@
-package P1.NoMVC;
-
 import java.io.*;
 
 class TestReadLine {
   public static void main(String[] args) {
-    BufferedReader in = new EditableBufferedReader(new InputStreamReader(System.in)); //creem un objecte de la classe EditableBufferedReader que llegeix de la entrada estandar
+    System.out.println("Presione Alt+E [EXIT] para resetar el terminal\r");
+    BufferedReader in = new EditableBufferedReader(new InputStreamReader(System.in));
     String str = null;
     try {
       str = in.readLine();
     } catch (IOException e) { e.printStackTrace(); }
     System.out.println("\nline is: " + str);
- }
+  }
 }
