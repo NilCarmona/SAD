@@ -1,80 +1,86 @@
-package P1.NoMVC;
 import java.io.*;
 
 
-public class Line {  //ha de tenir el estat,ser independent de la vista, per tant no pot tenir cap metode que faci referencia a la vista (system.out.print)
-    //ATRIBUTS
-    private StringBuilder frase;
+public class Line{
+
+    private StringBuilder phrase;
     private int cursorPosition;
     private int numLetters;
-    
-    //CONSTRUCTOR
+    private boolean insert = true;
+
     public Line(){
-        frase= new StringBuilder();// frase inicial buida
+        phrase = new StringBuilder();
         cursorPosition = 0;
     }
-    
-    public void moveRight() throws IOException{ 
-        if(cursorPosition < numLetters){
-            System.out.print("\u001b[1C");//Movem cursor a la dreta
-            this.cursorPosition = cursorPosition+1;
-        }
+
+    public void moveRight() throws IOException, InterruptedException{ 
+        Process process = Runtime.getRuntime().exec(new String[] { "tput", "cols" });
+        process.waitFor();
+        int width = Integer.parseInt(new String(process.getInputStream().readAllBytes()).trim());
+
+        if(cursorPosition!=width)
+		    this.cursorPosition = cursorPosition+1;
 	}
 
 	public void moveLeft(){
-        if(cursorPosition!=0)
-        System.out.print("\u001b[1D"); //Movem cursor a la esquerra
-		this.cursorPosition = cursorPosition-1;
+        if(cursorPosition > 0) 
+		this.cursorPosition -= 1;
     }
 
-    public void home(){
-        while(cursorPosition!=0){
-            moveLeft();
-        }
-        //System.out.print("\u001b["+cursorPosition+"D"); //Movem el cursor a la esquerra 'cursorPosition' cops
-		//cursorPosition = 0;
+    public void moveToStart(){
+		cursorPosition = 0;
 	}
 
     public void moveToEnd(){
-        while(cursorPosition!=numLetters){
-            try {
-                moveRight();
-            } catch (Exception e) {
-                
-            }           
-        }
-        //System.out.print("\u001b["+numLetters+"C"); //Movem el cursor a la dreta 'numLetters' cops
-		//cursorPosition = numLetters;
+		cursorPosition = numLetters;
 	}
 
-    public void insert(char letter){
-        frase.insert(cursorPosition,letter);
+    public void insert(){
+        insert =! insert;
 	}
 
-    public void backSpace(){
-        frase.deleteCharAt(cursorPosition-1);
+    public void backspace(){
+        if(cursorPosition>numLetters){
+        phrase.deleteCharAt(cursorPosition-1);
         cursorPosition --;
+        }
 	}
-
+    //mejorar el modo insert
     public void write(char letter) {
-		frase.insert(cursorPosition,letter);
-        cursorPosition++;
+        if(insert){
+            phrase.insert(cursorPosition,letter);
+            cursorPosition++;
+        }else{
+            phrase.setCharAt(cursorPosition,letter); 
+        }
 	}
 
     public void supr(){
-        frase.deleteCharAt(cursorPosition+1);
+        phrase.deleteCharAt(cursorPosition+1);
     }
-    //Stringbuilder a String
-    public String toString(){
-		return frase.toString();
-	}
+    //Metodos tipicos de cadenas
+    public boolean hasNext(){
+        return phrase.length()> cursorPosition;
+    }
 
+    public String toString(){
+		return phrase.toString();
+	}
     //GETTERS
+    public boolean getInsert(){
+        return insert;
+    }
     public int getCursorPosition(){
 		return cursorPosition;
 	}
 
 	public int getNumLetters(){
-		return frase.length();
+		return phrase.length();
 	}
+
+
+
+
+
+
 }
