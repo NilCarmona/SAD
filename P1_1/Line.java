@@ -47,6 +47,9 @@ public class Line{
 	}
 
     public void write(char letter) {
+        /*if(insert){// Reemplaza el carácter en la posición indicada por el índice con el carácter especificado.No modifica la longitud del StringBuilder.
+            phrase.setCharAt(cursorPosition,letter);    
+        }*/
 		phrase.insert(cursorPosition,letter);
         cursorPosition++;
 	}

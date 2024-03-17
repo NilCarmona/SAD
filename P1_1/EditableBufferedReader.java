@@ -11,7 +11,7 @@ import java.io.Reader;
 //package P0;
 //HOLA
 
-public class EditableBufferedReader extends BufferedReader{
+public class EditableBufferedReader extends BufferedReader implements Keys{
 
 //private Line2 line;
 //private View vista;
@@ -137,6 +137,7 @@ public String readLine() throws IOException{
             case '\r': break;
 
             case Keys.BACKSPACE: 
+                //al reves?
                 System.out.print("\u001b[1D"); //Cursor a la esquerra
                 System.out.print("\u001b[P"); //Esborrem el contingut del cursor
                 line.backspace();

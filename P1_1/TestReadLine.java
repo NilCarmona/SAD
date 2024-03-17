@@ -4,8 +4,7 @@ import java.io.*;
 class TestReadLine {
   public static void main(String[] args) {
     System.out.println("Presione Alt+E [EXIT] para resetar el terminal\r");
-    BufferedReader in = new EditableBufferedReader(
-      new InputStreamReader(System.in));
+    BufferedReader in = new EditableBufferedReader(new InputStreamReader(System.in));
     String str = null;
     try {
       str = in.readLine();

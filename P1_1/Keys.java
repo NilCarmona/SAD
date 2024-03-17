@@ -1,5 +1,5 @@
 package P1_1;
-interface Keys {
+interface Keys { // que tippo
 
     // Codificacions de les sequencies d'escape 
 
