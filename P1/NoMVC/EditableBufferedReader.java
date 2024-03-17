@@ -1,190 +1,174 @@
-package P1.NoMVC;
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 
 
-public class EditableBufferedReader extends BufferedReader{
-    //Constants
-     private static final int RIGHT = 'C';
-     private static final int LEFT = 'D';
-     private static final int HOME = 'H';
-     private static final int END = 'F';
-     private static final int SUPR = '3';
-     private static final int INS = '2';
-     private static final int BKSP = 127;
-    //ATRIBUTS
-    
-    //CONSTRUCTOR   
-    public EditableBufferedReader(Reader reader) {
-        super(reader); //Mismo constructor que BufferedReader
-        /*try {
-            setRaw();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+
+//package P0;
+//HOLA
+
+public class EditableBufferedReader extends BufferedReader implements Keys{
+
+//private Line2 line;
+//private View vista;
+
+public EditableBufferedReader(Reader text){
+    super(text);
+    //this.line = new Line2();
+    //this.vista= new View();
+}
+
+public void setRaw() throws IOException{ 
+    try{
+        String[] comanda = {"/bin/sh", "-c", "stty raw -echo </dev/tty"}; // /bin/sh, per a executar el codi com a una cadena, i amb l'stty configurem el terminal en raw mode
+        Runtime.getRuntime().exec(comanda).waitFor(); //Executem la comanda i esperem a que aquesta acabi
+
+    }catch(InterruptedException ex){
+        ex.printStackTrace();
     }
-    //METODES 
-    //El metodo read tiene que modificar el read de BufferedReader para que las teclas de escape sean reconocidas
-    @Override //Utilizar parsing, ver clase Scanner y sus problemas
-   public int read() throws IOException {  
-        //La clase escaner tiene implementada la interfaz iterable, por lo que se puede recorrer con un for each.      
-        //Scanner scanner = new Scanner(System.in);
-        //ESTO IRIA EN EL MAIN:
-        //String nombre = scanner.nextLine();
-        //scanner.close(); // Cerramos el scanner
-        //System.out.println(nombre);
+}
 
-        int caracter = 0;
-        setRaw(); //Queremos que el terminal este en modo raw.
-        caracter = super.read();
-        if(caracter == TeclasEscape.ESC){ // ^[ => ESC
-            caracter = super.read(); // llegim el següent caràcter despres del [
-            //el control v,z surt com a ^C perque es salta el [.]
-            caracter = super.read(); //Llegim el següent caràcter, saltem el [
-            if(caracter > 64){ //Si després llegim una lletra
-                switch (caracter) {
-                    case TeclasEscape.RIGHT: 
-                        caracter = TeclasEscape.xRIGHT;
-                        break;
-                    case TeclasEscape.LEFT: 
-                        caracter = TeclasEscape.xLEFT;
-                        break;
-                    case TeclasEscape.INICIO: 
-                        caracter= TeclasEscape.xINICIO;
-                        break;
-                    case TeclasEscape.FIN: 
-                        caracter= TeclasEscape.xFIN;
-                        break;
-                    case TeclasEscape.UP: 
-                        caracter= TeclasEscape.xUP;
-                        break;
-                    case TeclasEscape.DOWN: 
-                        caracter= TeclasEscape.xDOWN;
-                        break;
-                } 
-            }else{ //Si llegim un número
-                switch (caracter){
-                    case TeclasEscape.INSERT: 
-                        caracter=TeclasEscape.xINSERT;
-                        break;
-                    case TeclasEscape.SUPR: 
-                        caracter= TeclasEscape.xSUPR;
-                        break;
-                    case TeclasEscape.AVPAG: 
-                        caracter= TeclasEscape.xAVPAG;
-                        break;
-                    case TeclasEscape.REPAG: 
-                        caracter= TeclasEscape.xREPAG;
-                        break;
-                }
-                super.read(); //Obviem el "~"
-            }
-        
+public void unsetRaw() throws IOException{  //Fem el mateix procès que abans, pero ara per tornar al mode 'cooked'
+ try{
+ String[] comanda = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
+ Runtime.getRuntime().exec(comanda).waitFor();
+ 
+ }catch(InterruptedException ex){
+    ex.printStackTrace();
+ }
+}
+
+
+
+public int read() throws IOException{
+
+    int caracter = 0;
+    setRaw();
+    caracter = super.read();
+    if(caracter == Keys.ESC){
+        caracter = super.read(); //Obviem el "["
+        if(caracter==Keys.EXIT){
+            caracter= Keys.xEXIT;
+            return caracter;
         }
-        unsetRaw(); //Quan ja no volem que el terminal estigui en mode raw
-        return caracter;
-        
-    }
+        caracter = super.read(); //lleguim el seguent a "["	
+        switch (caracter) {
+            case Keys.RIGHT: 
+            caracter = Keys.xRIGHT;
+            break;
+            case Keys.LEFT: 
+            caracter = Keys.xLEFT;
+            break;
+            case Keys.INICIO: 
+            caracter= Keys.xINICIO;
+            break;
+            case Keys.FIN: 
+            caracter= Keys.xFIN;
+            break;
+            case Keys.INSERT: 
+            caracter=Keys.xINSERT;
+            break;
+            case Keys.AVPAG: 
+            caracter=Keys.xAVPAG;
+            break;
+            case Keys.REPAG: 
+            caracter=Keys.xREPAG;
+            break;
+            case Keys.SUPR: 
+            caracter= Keys.xSUPR;
+            break;
+        }
 
-    public String readLine() throws IOException{
-    //setRaw();
-    Line line = new Line();
-    int caracter=0;
+        if(caracter == Keys.xINSERT || caracter == Keys.xSUPR || caracter == Keys.xAVPAG || caracter == Keys.xREPAG){
+            super.read(); //Obviem el "~"
+        }
+    }
+    return caracter;
+}
+
     
-    while(caracter!='\r'){ //mentre no es premi enter
-        caracter= read();//aqui fa el read per cada caracter 
+
+
+public String readLine() throws IOException{  
+    setRaw();
+    Line line = new Line();
+    int caracter = 0;
+    while(caracter!='\r'){
+        caracter = read();
+
         switch(caracter){
 
-            case '\r': 
-            //Si es prem enter no fem res
-            break; 
+            case '\r': break;
 
-            case TeclasEscape.BACKSPACE: 
-                System.out.print("\u001b[1D"); //Cursor a la esquerra
-                System.out.print("\u001b[P"); //Esborrem el contingut del cursor
+            case Keys.BACKSPACE: 
+                
+                System.out.print("\u001b[1D\u001b[P"); //Cursor a la esquerra
+                //System.out.print("\u001b[P"); //Esborrem el contingut del cursor
                 line.backspace();
                 break;
 
-            case TeclasEscape.xRIGHT:
+            case Keys.xRIGHT:
                 try{
                 line.moveRight();
-                System.out.println("\n\rNegrita:\n\r\u001b[1m");
-                System.out.print("dreta");
+                System.out.print("\u001b[1C");//Movem cursor a la dreta
+                }catch(InterruptedException ex){}
+                break;
 
-                //System.out.print("\u001b[1C");//Movem cursor a la dreta
-                }catch(IOException e){
-                    System.out.print("error");//Movem cursor a la dreta
+            case Keys.xLEFT:
+                line.moveLeft();
+                System.out.print("\u001b[1D"); //Movem cursor a la esquerra
+                break;
+
+            case Keys.xINSERT: // no es hacer tipo instert?
+                line.insert();
+                if (line.getInsert()) System.out.print("\033[4h"); //Insert mode
+                else System.out.print("\033[4l"); //Overwrite mode
+                break;
+            
+            case Keys.xSUPR:
+                if(line.getCursorPosition() < line.getNumLetters()-1){
+                    System.out.print("\u001b[1C");// a la derecha
+                    System.out.print("\u001b[P");// elimino
+                    System.out.print("\u001b[1D");// a la izquierda
+                    line.supr();
                 }
                 break;
 
-            case TeclasEscape.xLEFT:
-                line.moveLeft();
-                //System.out.print("\u001b[1D"); //Movem cursor a la esquerra
-                break;
-
-            case TeclasEscape.xINSERT:
-                line.insert((char)caracter);
-                break;
-            
-            case TeclasEscape.xSUPR:
-                System.out.print("\u001b[1C");
-                System.out.print("\u001b[P");
-                System.out.print("\u001b[1D");
-                line.supr();
-                break;
-
-            case TeclasEscape.xINICIO:
+            case Keys.xINICIO:
+                // System.out.print("\033[H"); //Movem el cursor a l'inici de la pantalla
                 int cursorPosition= line.getCursorPosition();
                 System.out.print("\u001b["+cursorPosition+"D"); //Movem el cursor a la esquerra 'cursorPosition' cops
-                line.home();
+                line.moveToStart();
                 break;
 
-            case TeclasEscape.xFIN:
+            case Keys.xFIN:
+                // System.out.print("\033[F"); //Movem el cursor al final de la pantalla
                 int numLetters= line.getNumLetters();
                 System.out.print("\u001b[0"+numLetters+"C"); //Movem el cursor al final de la frase
                 line.moveToEnd();
                 break;
 
+            case Keys.xEXIT:
+                System.out.print("\u001b[2J");
+                System.out.print("\u001b[0;0H");
+                System.out.print("\u001b[0m");
+                System.out.print("\u001b[?25h");
+                break;          
+
             default:
                 line.write((char)caracter);
-                System.out.print((char) caracter);
+                System.out.print((char) caracter);// para que se vea en el momento
                 break;
          }
     }
 
-    //unsetRaw();
-    return line.toString();  
-} 
-
-   
-    public void setRaw() throws IOException{ //Las teclas de escape se leen como bytes individuales.No se produce ninguna traducción de caracteres.
-        try{
-            //Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty -echo raw </dev/tty" });//EN LINUX
-            //EN WINDOWS NO ES POSIBLE ACTUALMENT POR SEGURIDAD EN LA API
-            String[] com = {"C:/Archivos de Programa/Java/jdk-21/bin/jshell", "-c", "stty -echo raw </dev/tty"}; 
-            Process process = Runtime.getRuntime().exec(com); 
-            process.waitFor();// PARA QUE ESPERE A QUE TERMINE EL PROCESO, VER LETRA A LETRA
-        }catch(IOException Io){
-            Io.printStackTrace();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    unsetRaw();
     
+return line.toString();  
+}
 
-    public void unsetRaw() throws IOException{  // Las teclas de escape se interpretan como comandos especiales. Se produce la traducción de caracteres.
-        try{
-            //Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "stty echo cooked </dev/tty" }); //EN LINUX
-            //EN WINDOWS NO ES POSIBLE ACTUALMENT POR SEGURIDAD EN LA API
-            String[] com = {"C:/Archivos de Programa/Java/jdk-21/bin/jshell", "-c", "stty -cooked raw </dev/tty"}; 
-            Process process = Runtime.getRuntime().exec(com);
-           process.waitFor();// PARA QUE ESPERE A QUE TERMINE EL PROCESO, VER LETRA A LETRA
-        }catch(IOException Io){
-            Io.printStackTrace();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-    
 }
 
 
