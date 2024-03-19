@@ -1,7 +1,7 @@
 import java.io.*;
 
 
-public class Line{
+public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 
     private StringBuilder phrase;
     private int cursorPosition;
@@ -40,18 +40,19 @@ public class Line{
 	}
 
     public void backspace(){
-        if(cursorPosition>numLetters){
         phrase.deleteCharAt(cursorPosition-1);
         cursorPosition --;
-        }
 	}
-    //mejorar el modo insert
+    
     public void write(char letter) {
         if(insert){
             phrase.insert(cursorPosition,letter);
             cursorPosition++;
         }else{
-            phrase.setCharAt(cursorPosition,letter); 
+            if(cursorPosition>0){
+                phrase.replace(cursorPosition, cursorPosition + 1, String.valueOf(letter));
+            }
+            
         }
 	}
 
@@ -67,6 +68,9 @@ public class Line{
 		return phrase.toString();
 	}
     //GETTERS
+    public String getTmpString(){
+        return phrase.substring(cursorPosition);
+    }
     public boolean getInsert(){
         return insert;
     }
