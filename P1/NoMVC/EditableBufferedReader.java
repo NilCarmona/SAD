@@ -11,13 +11,10 @@ import java.io.Reader;
 
 public class EditableBufferedReader extends BufferedReader implements Keys{
 
-//private Line2 line;
-//private View vista;
+
 
 public EditableBufferedReader(Reader text){
     super(text);
-    //this.line = new Line2();
-    //this.vista= new View();
 }
 
 public void setRaw() throws IOException{ 
@@ -32,8 +29,8 @@ public void setRaw() throws IOException{
 
 public void unsetRaw() throws IOException{  //Fem el mateix procès que abans, pero ara per tornar al mode 'cooked'
  try{
- String[] cmd = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
- Runtime.getRuntime().exec(cmd).waitFor();
+    String[] cmd = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
+    Runtime.getRuntime().exec(cmd).waitFor();
  
  }catch(InterruptedException ex){
     ex.printStackTrace();
@@ -136,7 +133,7 @@ public String readLine() throws IOException{
                 break;
 
             case Keys.xLEFT:
-                if(line.getCursorPosition()>0){ // SE QUE AUN INTENTANDO IR A LA IZQUIERDA SI NO HAY CARACTERES NO LO HACE, PERO TAMPOCO QUIERO QUE SE HAGA EL PRINT 
+                if(line.getCursorPosition()>=0){ // SE QUE AUN INTENTANDO IR A LA IZQUIERDA SI NO HAY CARACTERES NO LO HACE, PERO TAMPOCO QUIERO QUE SE HAGA EL PRINT 
                 line.moveLeft();
                 System.out.print("\u001b[1D"); //Movem cursor a la esquerra
                 }
@@ -149,6 +146,16 @@ public String readLine() throws IOException{
                 break;
             
             case Keys.xSUPR:
+                if(line.getCursorPosition()<0){
+                    int pos = line.getNumLetters();
+                    String strtmp = line.getTmpString();
+                    //System.out.print("\033[K");
+                    System.out.flush();
+                    line.write((char)caracter);
+                    System.out.print((char) caracter);
+                    System.out.print(strtmp);
+                    //System.out.print("\033["+ pos + "D");
+                }
                 if(line.getCursorPosition() < line.getNumLetters()-1){
                     System.out.print("\u001b[1C");// a la derecha
                     System.out.print("\u001b[P");// elimino
@@ -158,17 +165,26 @@ public String readLine() throws IOException{
                 break;
 
             case Keys.xINICIO:
-                // System.out.print("\033[H"); //Movem el cursor a l'inici de la pantalla
+                //System.out.print("\033[H"); //Movem el cursor a l'inici de la pantalla
                 int cursorPosition= line.getCursorPosition();
                 System.out.print("\u001b["+cursorPosition+"D"); //Movem el cursor a la esquerra 'cursorPosition' cops
                 line.moveToStart();
                 break;
 
             case Keys.xFIN:
-                // System.out.print("\033[F"); //Movem el cursor al final de la pantalla
-                int numLetters= line.getNumLetters();
-                System.out.print("\u001b[0"+numLetters+"C"); //Movem el cursor al final de la frase
-                line.moveToEnd();
+                //System.out.print("\033[F"); //Movem el cursor al final de la pantalla
+                while (line.getCursorPosition()<line.getNumLetters()) {
+                    try {
+                        line.moveRight();
+                        System.out.print("\u001b[1C");
+                    } catch (Exception e) {
+                      System.out.println("Error en tecla Fin");   
+                    }
+                }
+                //AIXO NO ES POT FER AIXI JA QUE SI PULSO DOS COPS LA TECLA FIN ES MOU UN ALTRE COP EL NUMERO DE LLETRES (MAL)
+                //int numLetters= line.getNumLetters();
+                //System.out.print("\u001b[0"+numLetters+"C"); //Movem el cursor al final de la frase
+                
                 break;
 
             case Keys.xEXIT:
@@ -187,7 +203,19 @@ public String readLine() throws IOException{
                     System.out.print((char) caracter);
                     System.out.print(strtmp);
                     System.out.print("\033["+ pos + "D");
-                }else{            
+
+                if (!line.getInsert()) {       
+                    //line.moveLeft(); 
+                    //System.out.print("\u001b[1D");           
+                    int pos1 = line.getNumLetters()-(line.getCursorPosition());//+1
+                    String strtmp1 = line.getTmpString();
+                    line.write((char)caracter);
+                    System.out.print("\033[K");
+                    System.out.print((char)caracter);                    
+                    System.out.print(strtmp1);
+                    //System.out.print("\033["+ pos1 + "D");
+                }
+                }if(line.getCursorPosition()>=line.getNumLetters()) {   //else estaba bien       
                     line.write((char)caracter);
                     System.out.print((char) caracter);// para que se vea en el momento
                 }
@@ -201,6 +229,10 @@ return line.toString();
 }
 
 }
+
+
+
+
 
 
 
