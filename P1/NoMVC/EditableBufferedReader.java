@@ -22,8 +22,8 @@ public EditableBufferedReader(Reader text){
 
 public void setRaw() throws IOException{ 
     try{
-        String[] comanda = {"/bin/sh", "-c", "stty raw -echo </dev/tty"}; // /bin/sh, per a executar el codi com a una cadena, i amb l'stty configurem el terminal en raw mode
-        Runtime.getRuntime().exec(comanda).waitFor(); //Executem la comanda i esperem a que aquesta acabi
+        String[] cmd = {"/bin/sh", "-c", "stty raw -echo </dev/tty"}; // /bin/sh, per a executar el codi com a una cadena, i amb l'stty configurem el terminal en raw mode
+        Runtime.getRuntime().exec(cmd).waitFor(); //Executem la comanda i esperem a que aquesta acabi
 
     }catch(InterruptedException ex){
         ex.printStackTrace();
@@ -32,8 +32,8 @@ public void setRaw() throws IOException{
 
 public void unsetRaw() throws IOException{  //Fem el mateix procès que abans, pero ara per tornar al mode 'cooked'
  try{
- String[] comanda = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
- Runtime.getRuntime().exec(comanda).waitFor();
+ String[] cmd = {"/bin/sh", "-c", "stty cooked echo </dev/tty"};
+ Runtime.getRuntime().exec(cmd).waitFor();
  
  }catch(InterruptedException ex){
     ex.printStackTrace();
@@ -55,6 +55,12 @@ public int read() throws IOException{
         }
         caracter = super.read(); //lleguim el seguent a "["	
         switch (caracter) {
+            case Keys.UP: 
+            caracter = Keys.xUP;
+            break;
+            case Keys.DOWN: 
+            caracter = Keys.xDOWN;
+            break;
             case Keys.RIGHT: 
             caracter = Keys.xRIGHT;
             break;
@@ -100,28 +106,43 @@ public String readLine() throws IOException{
 
         switch(caracter){
 
+            case Keys.DOWN:
+            //NO FEM RES DE MOMENT
+            
+            break;
+
+            case Keys.UP:
+            //NO FEM RES DE MOMENT
+            
+            break;
+
             case '\r': break;
 
-            case Keys.BACKSPACE: 
-                
+            case Keys.BACKSPACE: //no hi ha conversio (127)
+                if(line.getCursorPosition()>0){
                 System.out.print("\u001b[1D\u001b[P"); //Cursor a la esquerra
                 //System.out.print("\u001b[P"); //Esborrem el contingut del cursor
                 line.backspace();
+                }
                 break;
 
             case Keys.xRIGHT:
-                try{
-                line.moveRight();
-                System.out.print("\u001b[1C");//Movem cursor a la dreta
+                if(line.getCursorPosition() < line.getNumLetters()){
+                    try{ //NO QUIERO PODER HACER DERECHA SI NO HAY CARACTERES (COMO EN ESTE EDITOR DE CODIGO)
+                        line.moveRight();
+                        System.out.print("\u001b[1C");//Movem cursor a la dreta
                 }catch(InterruptedException ex){}
+                }
                 break;
 
             case Keys.xLEFT:
+                if(line.getCursorPosition()>0){ // SE QUE AUN INTENTANDO IR A LA IZQUIERDA SI NO HAY CARACTERES NO LO HACE, PERO TAMPOCO QUIERO QUE SE HAGA EL PRINT 
                 line.moveLeft();
                 System.out.print("\u001b[1D"); //Movem cursor a la esquerra
+                }
                 break;
 
-            case Keys.xINSERT: // no es hacer tipo instert?
+            case Keys.xINSERT: // hacer tipo instert
                 line.insert();
                 if (line.getInsert()) System.out.print("\033[4h"); //Insert mode
                 else System.out.print("\033[4l"); //Overwrite mode
@@ -158,8 +179,18 @@ public String readLine() throws IOException{
                 break;          
 
             default:
-                line.write((char)caracter);
-                System.out.print((char) caracter);// para que se vea en el momento
+                if(line.getInsert() && (line.getCursorPosition()< line.getNumLetters())){
+                    int pos = line.getNumLetters()-line.getCursorPosition();
+                    String strtmp = line.getTmpString();
+                    System.out.print("\033[K");
+                    line.write((char)caracter);
+                    System.out.print((char) caracter);
+                    System.out.print(strtmp);
+                    System.out.print("\033["+ pos + "D");
+                }else{            
+                    line.write((char)caracter);
+                    System.out.print((char) caracter);// para que se vea en el momento
+                }
                 break;
          }
     }
@@ -170,6 +201,7 @@ return line.toString();
 }
 
 }
+
 
 
 
