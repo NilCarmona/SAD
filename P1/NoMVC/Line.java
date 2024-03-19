@@ -23,7 +23,7 @@ public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 	}
 
 	public void moveLeft(){
-        if(cursorPosition > 0) 
+        if(cursorPosition >= 0) 
 		this.cursorPosition -= 1;
     }
 
@@ -32,7 +32,7 @@ public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 	}
 
     public void moveToEnd(){
-		cursorPosition = numLetters;
+		cursorPosition = this.getNumLetters();
 	}
 
     public void insert(){
@@ -45,19 +45,23 @@ public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 	}
     
     public void write(char letter) {
-        if(insert){
+        if(this.getInsert()||(this.getCursorPosition() == getNumLetters())){
             phrase.insert(cursorPosition,letter);
             cursorPosition++;
-        }else{
-            if(cursorPosition>0){
-                phrase.replace(cursorPosition, cursorPosition + 1, String.valueOf(letter));
-            }
             
         }
-	}
+        if(!this.getInsert()){
+            phrase.setCharAt(cursorPosition-1, letter);
+            
+         }
+            
+        }
+	
 
     public void supr(){
-        phrase.deleteCharAt(cursorPosition+1);
+                    
+            phrase.deleteCharAt(cursorPosition+1);
+        
     }
     //Metodos tipicos de cadenas
     public boolean hasNext(){
@@ -88,3 +92,4 @@ public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 
 
 }
+
