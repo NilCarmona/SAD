@@ -194,11 +194,11 @@ public String readLine() throws IOException{
                     System.out.print("\033["+ pos + "D");
 
                 
-                }else { //else estaba bien       
+                }else { //OVERWRITE      
                     line.write((char)caracter);
                     System.out.print((char) caracter);// para que se vea en el momento
                     if(line.getCursorPosition()<line.getNumLetters()){
-                    System.out.print("\u001b[1D");
+                        //System.out.print("\u001b[1D");
                     }
                     
                 }
@@ -212,12 +212,3 @@ return line.toString();
 }
 
 }
-
-
-
-
-
-
-
-
-
