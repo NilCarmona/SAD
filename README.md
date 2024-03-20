@@ -10,7 +10,7 @@ La primera pràctica és un miniprojecte en el que es treballa el patró MVC, pa
 
 -En el mode Overwrite es sobreescriu unicament si estas entre caracters, si et trobes al final s'afegeix. (com els editors que he vist)
 
--Left i right nomes serveixen per mouret entre la frase, si vols avançar en la linia buida fes espai (backspace). (com els editors que he vist)
+-Left i right nomes serveixen per mouret entre la frase, si vols avançar en la linia buida fes espai. (com els editors que he vist)
 
 -Les tecles UP I DOWN estan inhabilitades en el MVC (les activare en els extres)
 
