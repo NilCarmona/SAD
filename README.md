@@ -30,8 +30,17 @@ La primera pràctica és un miniprojecte en el que es treballa el patró MVC, pa
 
 --------------------------------------------------MVC OBSERVABLE-------------------------------------------------------------
 -S'ha implementat la clase observable (ESTA OBSOLETA, RECORDAR POSAR VERSIO DE JAVA ANTIGUA)
+
 -ANTERIORMENT JA ES SEGUIA EL PATRO MCV AIXI QUE NO ES NECESARIA AQUESTA IMPLEMENTACIO.
+
 -Funcionament: 
+1.- Es notifica a la clase view (consola) els canvis, aquesta envia un objecte per parametre.
+2.- L'objecte es converteix a string
+3.- Evaluem els posibles casos y fem un conjunt de prints
+
+-------------------------------------------------CLASE SCANNER-------------------------------------------------------------
+- HI HA UN DOCUMENT scanner.java on faig probes de aquesta clase, es bastant interesant pero es veu millor el funcionament
+- amb EL MVC FET.
 
 
 --------------------------------------------------OPCIONALS----------------------------------------------------------------
