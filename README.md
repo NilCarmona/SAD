@@ -26,6 +26,9 @@ La primera pràctica és un miniprojecte en el que es treballa el patró MVC, pa
 
 -la clase EditableBufferedReader implementa la interficie TeclasEsc, ja que utilitza els seus atributs.
 
+-La clase Main es TestReadLine, per tant vols fer un archiu executable (.jar) recorda posar en el archiu Manifest que aquesta es la clase principal
+
+
 -----------------------------------------------------------------OPCIONALS-------------------------------------------------------------------------------
 
 La primera pràctica te alguns apartats opcionals un dels quals és una calculadora bàsica amb formularis de text.
