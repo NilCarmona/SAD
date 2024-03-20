@@ -26,7 +26,7 @@ La primera pràctica és un miniprojecte en el que es treballa el patró MVC, pa
 
 -la clase EditableBufferedReader implementa la interficie TeclasEsc, ja que utilitza els seus atributs.
 
------------------------------------------------------------------OPCIONALS---------------------------------------------------------------------------------
+-----------------------------------------------------------------OPCIONALS-------------------------------------------------------------------------------
 
 La primera pràctica te alguns apartats opcionals un dels quals és una calculadora bàsica amb formularis de text.
 
