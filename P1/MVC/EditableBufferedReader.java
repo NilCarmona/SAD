@@ -53,10 +53,10 @@ public class EditableBufferedReader extends BufferedReader implements TeclasEsc{
                 case TeclasEsc.INSERT: 
                 caracter=TeclasEsc.newINSERT;
                 break;
-                case TeclasEsc.newSUPR: 
+                case TeclasEsc.SUPR: 
                 caracter= TeclasEsc.newSUPR;
                 break;
-                case TeclasEsc.newREPAG: 
+                case TeclasEsc.REPAG: 
                 caracter=TeclasEsc.newREPAG;
                 break;
                 case TeclasEsc.AVPAG: 
