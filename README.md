@@ -28,6 +28,11 @@ La primera pràctica és un miniprojecte en el que es treballa el patró MVC, pa
 
 -La clase Main es TestReadLine, per tant vols fer un archiu executable (.jar) recorda posar en el archiu Manifest que aquesta es la clase principal
 
+--------------------------------------------------MVC OBSERVABLE-------------------------------------------------------------
+-S'ha implementat la clase observable (ESTA OBSOLETA, RECORDAR POSAR VERSIO DE JAVA ANTIGUA)
+-ANTERIORMENT JA ES SEGUIA EL PATRO MCV AIXI QUE NO ES NECESARIA AQUESTA IMPLEMENTACIO.
+-Funcionament: 
+
 
 --------------------------------------------------OPCIONALS----------------------------------------------------------------
 
