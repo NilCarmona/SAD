@@ -2,7 +2,7 @@
 P1:
 La primera pràctica és un miniprojecte en el que es treballa el patró MVC, parsing de seqüències d'escape d'un emulador de terminal i execució de programes externs des de JAVA.
 
---------------------------------------------------------------------MVC------------------------------------------------------------------------------------
+--------------------------------------------------------------MVC------------------------------------------------------------------------
 
 -He introduit el mode EDIT: buidar el terminal per a una millor visualitzacio).
 
@@ -29,7 +29,7 @@ La primera pràctica és un miniprojecte en el que es treballa el patró MVC, pa
 -La clase Main es TestReadLine, per tant vols fer un archiu executable (.jar) recorda posar en el archiu Manifest que aquesta es la clase principal
 
 
------------------------------------------------------------------OPCIONALS-------------------------------------------------------------------------------
+------------------------------------------------------OPCIONALS-------------------------------------------------------------------
 
 La primera pràctica te alguns apartats opcionals un dels quals és una calculadora bàsica amb formularis de text.
 
