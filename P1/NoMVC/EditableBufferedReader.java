@@ -6,9 +6,6 @@ import java.io.Reader;
 
 
 
-//package P0;
-//HOLA
-
 public class EditableBufferedReader extends BufferedReader implements Keys{
 
 
@@ -141,27 +138,19 @@ public String readLine() throws IOException{
 
             case Keys.xINSERT: // hacer tipo instert
                 line.insert();
-                if (line.getInsert()) System.out.print("\033[4h"); //Insert mode
-                else System.out.print("\033[4l"); //Overwrite mode
+                //if (line.getInsert()) System.out.print("\033[4h"); //Insert mode
+                //else System.out.print("\033[4l"); //Overwrite mode
                 break;
             
             case Keys.xSUPR:
-                if(line.getCursorPosition()<0){
-                    int pos = line.getNumLetters();
-                    String strtmp = line.getTmpString();
-                    //System.out.print("\033[K");
-                    System.out.flush();
-                    line.write((char)caracter);
-                    System.out.print((char) caracter);
-                    System.out.print(strtmp);
-                    //System.out.print("\033["+ pos + "D");
-                }
-                if(line.getCursorPosition() < line.getNumLetters()-1){
+                if(line.getCursorPosition()>=0 && (line.getCursorPosition()<line.getNumLetters()-1)){
+                    
                     System.out.print("\u001b[1C");// a la derecha
                     System.out.print("\u001b[P");// elimino
                     System.out.print("\u001b[1D");// a la izquierda
                     line.supr();
                 }
+                
                 break;
 
             case Keys.xINICIO:
@@ -204,20 +193,17 @@ public String readLine() throws IOException{
                     System.out.print(strtmp);
                     System.out.print("\033["+ pos + "D");
 
-                if (!line.getInsert()) {       
-                    //line.moveLeft(); 
-                    //System.out.print("\u001b[1D");           
-                    int pos1 = line.getNumLetters()-(line.getCursorPosition());//+1
-                    String strtmp1 = line.getTmpString();
-                    line.write((char)caracter);
-                    System.out.print("\033[K");
-                    System.out.print((char)caracter);                    
-                    System.out.print(strtmp1);
-                    //System.out.print("\033["+ pos1 + "D");
-                }
-                }if(line.getCursorPosition()>=line.getNumLetters()) {   //else estaba bien       
+                
+                }else if(line.getCursorPosition()>=line.getNumLetters()) {   //else estaba bien       
                     line.write((char)caracter);
                     System.out.print((char) caracter);// para que se vea en el momento
+                }else if (!line.getInsert()) { //esta en overwrite   
+                    line.write((char)caracter);
+                    System.out.print((char) caracter);
+                    if(line.getCursorPosition()<line.getNumLetters()){
+                    System.out.print("\u001b[1D");
+                    }
+                    
                 }
                 break;
          }
@@ -229,6 +215,7 @@ return line.toString();
 }
 
 }
+
 
 
 
