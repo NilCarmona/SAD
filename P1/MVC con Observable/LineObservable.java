@@ -1,14 +1,13 @@
 import java.io.*;
 
 
-public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
+public class LineObservable{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 
     private StringBuilder phrase;
     private int cursorPosition;
-    private int numLetters;
     private boolean insert = true;
 
-    public Line(){
+    public LineObservable(){
         phrase = new StringBuilder();
         cursorPosition = 0;
     }
