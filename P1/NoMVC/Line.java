@@ -23,7 +23,7 @@ public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 	}
 
 	public void moveLeft(){
-        if(cursorPosition >= 0) 
+        if(cursorPosition >0) 
 		this.cursorPosition -= 1;
     }
 
@@ -40,19 +40,20 @@ public class Line{ //LOGICA Y ESTADO DE LA FRASE, INTENTAR NO HACER PRINTS
 	}
 
     public void backspace(){
+        if(this.getCursorPosition()>0){
         phrase.deleteCharAt(cursorPosition-1);
         cursorPosition --;
+        }
 	}
     
     public void write(char letter) {
-        if(this.getInsert()||(this.getCursorPosition() == getNumLetters())){
+        if(this.getInsert()||(this.getCursorPosition() >= this.getNumLetters())){
             phrase.insert(cursorPosition,letter);
             cursorPosition++;
             
-        }
-        if(!this.getInsert()){
-            phrase.setCharAt(cursorPosition-1, letter);
-            
+        } else if(!this.getInsert()){
+            phrase.setCharAt(cursorPosition, letter);
+                       
          }
             
         }
