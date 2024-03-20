@@ -1,3 +1,4 @@
+
 interface Keys { // que tippo
 
     // Codificacions de les sequencies d'escape 
