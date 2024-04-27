@@ -138,16 +138,27 @@ public class View extends JFrame {
                 for (int j = 0; j < 8; j++) {
                     if (labels[i][j] == e.getSource()) {
                         //ESTO DEBERIA ESTAR EN EL CONTROLADOR PERO LOS PRINTS COMO VIEW Y LOS MOVIMIENTOS COMO MODEL
-                        if (filaOrigen == -1 && columnaOrigen == -1) {
-                            System.out.println("Seleccionar pieza: " + i + ", " + j);
-                            filaOrigen = i;
-                            columnaOrigen = j;
+                        //1 CLICK: ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) TENER EN CUENTA LOS BORDES
+                        if (filaOrigen == -1 && columnaOrigen == -1 || ((tablero.getElemento(i, j).matches("[ptcadrPTCADR]")) && labels[i][j].getBackground() != Color.RED)) {
+                            System.out.println("PRIMER CLICK: " + i + ", " + j);
+                            for (int k = 0; k < 8; k++) {
+                                for (int l = 0; l < 8; l++) {
+                                    if ((k + l) % 2 == 0) {
+                                        labels[k][l].setBackground(Color.WHITE);
+                                    } else {
+                                        labels[k][l].setBackground(Color.GRAY);
+                                    }
+                                }
+                            }
 
-                            //ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) TENER EN CUENTA LOS BORDES
+                            //
                             if(player1Turn){
                                 System.out.println("Turno de blancas");
-                                if (tablero.getElemento(filaOrigen, columnaOrigen).matches("[PTCADR]")) {
+                                if (tablero.getElemento(i,j).matches("[PTCADR]")) {
+                                    filaOrigen = i;
+                                    columnaOrigen = j;
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
+                                    
                                     //POSIBLES MOVIMIENTOS
                                     //model.posiblesMovimientos(tablero.getElemento(filaOrigen, columnaOrigen));
                                     switch(tablero.getElemento(i, j)){
@@ -162,11 +173,10 @@ public class View extends JFrame {
                                             } else if(!tablero.getElemento(filaOrigen - 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
                                                 
                                                 labels[filaOrigen - 1][columnaOrigen].setBackground(Color.GREEN);
-                                            }
-                                            if(tablero.getElemento(filaOrigen - 1, columnaOrigen - 1).matches("[ptcadr]")){
+                                            }if(tablero.getElemento(filaOrigen - 1, columnaOrigen - 1).matches("[ptcadr]")){
                                                 labels[filaOrigen - 1][columnaOrigen - 1].setBackground(Color.RED);
     
-                                            }else if (tablero.getElemento(filaOrigen - 1, columnaOrigen + 1).matches("[ptcadr]")){
+                                            }if (tablero.getElemento(filaOrigen - 1, columnaOrigen + 1).matches("[ptcadr]")){
                                                 labels[filaOrigen - 1][columnaOrigen + 1].setBackground(Color.RED);
                                             }
                                             break;
@@ -189,18 +199,20 @@ public class View extends JFrame {
                                     }
     
                                 }
-                                else if(!tablero.getElemento(filaOrigen, columnaOrigen).matches("[ptcadrPTCADR]")){
-                                    System.out.println("no hay piezas tuyas en esa posicion");
+                                else if(tablero.getElemento(i, j).matches("[ptcadr]")){
+                                    System.out.println("Es turno de blancas");
                                     
                                 }
                                 else {
-                                    System.out.println("Es turno de blancas");
+                                    System.out.println("No hay piezas tuyas en esa posicion");
                                 }
                                 
                             }
                             else if(player2Turn){
                                 System.out.println("Turno de negras");
-                                if (tablero.getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
+                                if (tablero.getElemento(i,j).matches("[ptcadr]")) {
+                                    filaOrigen = i;
+                                    columnaOrigen = j;
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
                                     //POSIBLES MOVIMIENTOS
                                     //model.posiblesMovimientos(tablero.getElemento(filaOrigen, columnaOrigen));
@@ -216,11 +228,10 @@ public class View extends JFrame {
                                             } else if(!tablero.getElemento(filaOrigen + 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
                                                 
                                                 labels[filaOrigen + 1][columnaOrigen].setBackground(Color.GREEN);
-                                            }
-                                            if(tablero.getElemento(filaOrigen + 1, columnaOrigen + 1).matches("[PTCADR]")){
+                                            }if(tablero.getElemento(filaOrigen + 1, columnaOrigen + 1).matches("[PTCADR]")){
                                                 labels[filaOrigen + 1][columnaOrigen + 1].setBackground(Color.RED);
     
-                                            }else if (tablero.getElemento(filaOrigen + 1, columnaOrigen - 1).matches("[PTCADR]")){
+                                            }if (tablero.getElemento(filaOrigen + 1, columnaOrigen - 1).matches("[PTCADR]")){
                                                 labels[filaOrigen + 1][columnaOrigen - 1].setBackground(Color.RED);
                                             }
                                             break;
@@ -243,20 +254,23 @@ public class View extends JFrame {
                                     }
     
                                 }
-                                else if(!tablero.getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")){
-                                    System.out.println("no hay piezas tuyas en esa posicion");
+                                else if(tablero.getElemento(i,j).matches("[PTCADR]")){
+                                    System.out.println("Es turno de negras");
                                     
                                 }
                                 else {
-                                    System.out.println("Es turno de negras");
+                                    System.out.println("No hay piezas tuyas en esa posicion");
                                 }
 
                                 
                             }
 
-                        //AQUI ES PARA EL MOVIMIENTO
+                        //2 clikc: AQUI ES PARA EL MOVIMIENTO
 
-                        } else if (filaOrigen == i && columnaOrigen == j) {
+                        }else if ( filaOrigen != -1 && columnaOrigen != -1){
+                            System.out.println("SEGUNDO CLICK: " + i + ", " + j);
+                            //cancelar mov (posible otra implementacion)
+                            if (filaOrigen == i && columnaOrigen == j) {
                             System.out.println("Cancelar movimiento");
                             filaOrigen = -1;
                             columnaOrigen = -1;
@@ -271,7 +285,7 @@ public class View extends JFrame {
                                     }
                                 }
                             }
-                        } else {
+                            }else{
                             System.out.println("Mover a: " + i + ", " + j);
                             filaDestino = i;
                             columnaDestino = j;
@@ -325,11 +339,15 @@ public class View extends JFrame {
                                 else{
                                     System.out.println("Es turno de negras");
                                 }
+                            
                                 
                             
+                            }
+                     
                         }
                     }
-                    }
+              
+                    }  
                 }
             }
 
