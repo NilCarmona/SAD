@@ -6,6 +6,9 @@ AJEDREZ:
 -Implementado posibles movimientos y movimiento del Peon.
 -Implementados Turnos
 -Descargados todos los recursos en rsc->Images
+
+
+
 P1:
 La primera pràctica és un miniprojecte en el que es treballa el patró MVC, parsing de seqüències d'escape d'un emulador de terminal i execució de programes externs des de JAVA.
 
