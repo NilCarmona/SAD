@@ -745,6 +745,17 @@ public class View extends JFrame {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
                                     //unicamente moverme a lo verde o rojo
                                     if (labels[filaDestino][columnaDestino].getBackground() == Color.GREEN || labels[filaDestino][columnaDestino].getBackground() == Color.RED) {
+                                        if(labels[filaDestino][columnaDestino].getBackground() == Color.RED){
+                                            
+                                            //comer pieza
+                                            System.out.println("COMER PIEZA");
+                                            if(tablero.getElemento(filaDestino, columnaDestino).matches("[r]")){
+                                                System.out.println("GAME OVER, GANA BLANCAS");
+                                                //IMPLEMENTAR MENU ETC...
+                                            }
+                                            
+
+                                        }
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
                                         actualizarTablero(tablero);
@@ -770,6 +781,17 @@ public class View extends JFrame {
                                 if (tablero.getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
                                     if (labels[filaDestino][columnaDestino].getBackground() == Color.GREEN || labels[filaDestino][columnaDestino].getBackground() == Color.RED) {
+                                        if(labels[filaDestino][columnaDestino].getBackground() == Color.RED){
+                                            
+                                            //comer pieza
+                                            System.out.println("COMER PIEZA");
+                                            if(tablero.getElemento(filaDestino, columnaDestino).matches("[R]")){
+                                                System.out.println("GAME OVER, GANA NEGRAS");
+                                                 //IMPLEMENTAR MENU ETC...
+                                            }
+                                            
+
+                                        }
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
                                         actualizarTablero(tablero);
