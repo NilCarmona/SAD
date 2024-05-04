@@ -182,20 +182,244 @@ public class View extends JFrame {
                                             break;
                                         
                                         case "T":
+                                        
                                             //model.posiblesMovimientosTorre(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos de la torre hacia arriba
+                                            for (int k = filaOrigen - 1; k >= 0; k--) {
+                                                if (tablero.getElemento(k, columnaOrigen).matches("[ptcadr]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            // Lógica para los movimientos de la torre hacia abajo
+                                            for (int k = filaOrigen + 1; k < 8; k++) {
+                                                if (tablero.getElemento(k, columnaOrigen).matches("[ptcadr]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            // Lógica para los movimientos de la torre hacia la izquierda
+                                            for (int l = columnaOrigen - 1; l >= 0; l--) {
+                                                if (tablero.getElemento(filaOrigen, l).matches("[ptcadr]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            // Lógica para los movimientos de la torre hacia la derecha
+                                            for (int l = columnaOrigen + 1; l < 8; l++) {
+                                                if (tablero.getElemento(filaOrigen, l).matches("[ptcadr]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
                                             break;
                                         case "C":
+                                        
                                             //model.posiblesMovimientosCaballo(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos del caballo
+                                            int[] dxcaballo = {2, 1, -1, -2, -2, -1, 1, 2};
+                                            int[] dycaballo = {1, 2, 2, 1, -1, -2, -2, -1};
+                                            for (int k = 0; k < 8; k++) {
+                                                int x = filaOrigen + dxcaballo[k];
+                                                int y = columnaOrigen + dycaballo[k];
+                                                if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                    if (tablero.getElemento(x, y).matches("[ptcadr]")) {
+                                                        labels[x][y].setBackground(Color.RED);
+                                                    } else if (!tablero.getElemento(x, y).matches("[ptcadrPTCADR]")) {
+                                                        labels[x][y].setBackground(Color.GREEN);
+                                                    }
+                                                }
+                                            }
                                             break;
                                         case "A":
+
                                             //model.posiblesMovimientosAlfil(filaOrigen, columnaOrigen);
-                                            break;
+                                            // Lógica para los movimientos del alfil
+                                            // Movimientos en diagonal hacia arriba a la izquierda
+                                            System.out.println("alfil blanco");
+
+                                            for (int k = 1; filaOrigen - k >= 0 && columnaOrigen - k >= 0; k++) {
+                                                if (tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[ptcadr]")) {
+                                                    labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia arriba a la derecha
+                                            for (int k = 1; filaOrigen - k >= 0 && columnaOrigen + k < 8; k++) {
+                                                if (tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[ptcadr]")) {
+                                                    labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia abajo a la izquierda
+                                            for (int k = 1; filaOrigen + k < 8 && columnaOrigen - k >= 0; k++) {
+                                                if (tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[ptcadr]")) {
+                                                    labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia abajo a la derecha
+                                            for (int k = 1; filaOrigen + k < 8 && columnaOrigen + k < 8; k++) {
+                                                if (tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[ptcadr]")) {
+                                                    labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            
+                                        break;
                                         case "D":
-                                            //model.posiblesMovimientosDama(filaOrigen, columnaOrigen);
-                                            break;
+                                        // Lógica para los movimientos de la dama
+                                        // Movimientos en diagonal hacia arriba a la izquierda
+                                        for (int k = 1; filaOrigen - k >= 0 && columnaOrigen - k >= 0; k++) {
+                                            if (tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[ptcadr]")) {
+                                                labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                        // Movimientos en diagonal hacia arriba a la derecha
+                                        for (int k = 1; filaOrigen - k >= 0 && columnaOrigen + k < 8; k++) {
+                                            if (tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[ptcadr]")) {
+                                                labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                        // Movimientos en diagonal hacia abajo a la izquierda
+                                        for (int k = 1; filaOrigen + k < 8 && columnaOrigen - k >= 0; k++) {
+                                            if (tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[ptcadr]")) {
+                                                labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                        // Movimientos en diagonal hacia abajo a la derecha
+                                        for (int k = 1; filaOrigen + k < 8 && columnaOrigen + k < 8; k++) {
+                                            if (tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[ptcadr]")) {
+                                                labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+                                        // Movimientos en vertical hacia arriba
+                                        for (int k = filaOrigen - 1; k >= 0; k--) {
+                                            if (tablero.getElemento(k, columnaOrigen).matches("[ptcadr]")) {
+                                                labels[k][columnaOrigen].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                        // Movimientos en vertical hacia abajo
+                                        for (int k = filaOrigen + 1; k < 8; k++) {
+                                            if (tablero.getElemento(k, columnaOrigen).matches("[ptcadr]")) {
+                                                labels[k][columnaOrigen].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                        // Movimientos en horizontal hacia la izquierda
+                                        for (int l = columnaOrigen - 1; l >= 0; l--) {
+                                            if (tablero.getElemento(filaOrigen, l).matches("[ptcadr]")) {
+                                                labels[filaOrigen][l].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                labels[filaOrigen][l].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+
+                                        // Movimientos en horizontal hacia la derecha
+                                        for (int l = columnaOrigen + 1; l < 8; l++) {
+                                            if (tablero.getElemento(filaOrigen, l).matches("[ptcadr]")) {
+                                                labels[filaOrigen][l].setBackground(Color.RED);
+                                                break;
+                                            } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                labels[filaOrigen][l].setBackground(Color.GREEN);
+                                            } else {
+                                                break;
+                                            }
+                                        }
+                                        break;
                                         case "R":
-                                            //model.posiblesMovimientosRey(filaOrigen, columnaOrigen);
-                                            break;
+                                        // Lógica para los movimientos del rey
+                                        int[] dxrei = {1, 1, 1, 0, 0, -1, -1, -1};
+                                        int[] dyrei = {1, 0, -1, 1, -1, 1, 0, -1};
+                                        for (int k = 0; k < 8; k++) {
+                                            int x = filaOrigen + dxrei[k];
+                                            int y = columnaOrigen + dyrei[k];
+                                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                if (tablero.getElemento(x, y).matches("[ptcadr]")) {
+                                                    labels[x][y].setBackground(Color.RED);
+                                                } else if (!tablero.getElemento(x, y).matches("[ptcadrPTCADR]")) {
+                                                    labels[x][y].setBackground(Color.GREEN);
+                                                }
+                                            }
+                                        }
+                                        break;                                        
+                            
                                     }
     
                                 }
@@ -238,18 +462,244 @@ public class View extends JFrame {
                                         
                                         case "t":
                                             //model.posiblesMovimientosTorre(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos de la torre hacia arriba
+                                            for (int k = filaOrigen - 1; k >= 0; k--) {
+                                                if (tablero.getElemento(k, columnaOrigen).matches("[PTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Lógica para los movimientos de la torre hacia abajo
+                                            for (int k = filaOrigen + 1; k < 8; k++) {
+                                                if (tablero.getElemento(k, columnaOrigen).matches("[PTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Lógica para los movimientos de la torre hacia la izquierda
+                                            for (int l = columnaOrigen - 1; l >= 0; l--) {
+                                                if (tablero.getElemento(filaOrigen, l).matches("[PTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Lógica para los movimientos de la torre hacia la derecha
+                                            for (int l = columnaOrigen + 1; l < 8; l++) {
+                                                if (tablero.getElemento(filaOrigen, l).matches("[PTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
                                             break;
                                         case "c":
                                             //model.posiblesMovimientosCaballo(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos del caballo
+                                            int[] dxcaballo = {2, 1, -1, -2, -2, -1, 1, 2};
+                                            int[] dycaballo = {1, 2, 2, 1, -1, -2, -2, -1};
+                                            for (int k = 0; k < 8; k++) {
+                                                int x = filaOrigen + dxcaballo[k];
+                                                int y = columnaOrigen + dycaballo[k];
+                                                if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                    if (tablero.getElemento(x, y).matches("[PTCADR]")) {
+                                                        labels[x][y].setBackground(Color.RED);
+                                                    } else if (!tablero.getElemento(x, y).matches("[ptcadrPTCADR]")) {
+                                                        labels[x][y].setBackground(Color.GREEN);
+                                                    }
+                                                }
+                                            }
                                             break;
                                         case "a":
                                             //model.posiblesMovimientosAlfil(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos del alfil
+                                            // Movimientos en diagonal hacia arriba a la izquierda
+                                            for (int k = 1; filaOrigen - k >= 0 && columnaOrigen - k >= 0; k++) {
+                                                if (tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia arriba a la derecha
+                                            for (int k = 1; filaOrigen - k >= 0 && columnaOrigen + k < 8; k++) {
+                                                if (tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia abajo a la izquierda
+                                            for (int k = 1; filaOrigen + k < 8 && columnaOrigen - k >= 0; k++) {
+                                                if (tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia abajo a la derecha
+                                            for (int k = 1; filaOrigen + k < 8 && columnaOrigen + k < 8; k++) {
+                                                if (tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+
                                             break;
-                                        case "s":
+                                        case "d":
                                             //model.posiblesMovimientosDama(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos de la dama
+                                            // Movimientos en diagonal hacia arriba a la izquierda
+                                            for (int k = 1; filaOrigen - k >= 0 && columnaOrigen - k >= 0; k++) {
+                                                if (tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen - k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia arriba a la derecha
+                                            for (int k = 1; filaOrigen - k >= 0 && columnaOrigen + k < 8; k++) {
+                                                if (tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen - k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen - k][columnaOrigen + k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia abajo a la izquierda
+                                            for (int k = 1; filaOrigen + k < 8 && columnaOrigen - k >= 0; k++) {
+                                                if (tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen - k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen - k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en diagonal hacia abajo a la derecha
+                                            for (int k = 1; filaOrigen + k < 8 && columnaOrigen + k < 8; k++) {
+                                                if (tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[PTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen + k, columnaOrigen + k).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen + k][columnaOrigen + k].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en vertical hacia arriba
+                                            for (int k = filaOrigen - 1; k >= 0; k--) {
+                                                if (tablero.getElemento(k, columnaOrigen).matches("[PTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en vertical hacia abajo
+                                            for (int k = filaOrigen + 1; k < 8; k++) {
+                                                if (tablero.getElemento(k, columnaOrigen).matches("[PTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(k, columnaOrigen).matches("[ptcadrPTCADR]")) {
+                                                    labels[k][columnaOrigen].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en horizontal hacia la izquierda
+                                            for (int l = columnaOrigen - 1; l >= 0; l--) {
+                                                if (tablero.getElemento(filaOrigen, l).matches("[PTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            // Movimientos en horizontal hacia la derecha
+                                            for (int l = columnaOrigen + 1; l < 8; l++) {
+                                                if (tablero.getElemento(filaOrigen, l).matches("[PTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.RED);
+                                                    break;
+                                                } else if (!tablero.getElemento(filaOrigen, l).matches("[ptcadrPTCADR]")) {
+                                                    labels[filaOrigen][l].setBackground(Color.GREEN);
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            
                                             break;
                                         case "r":
                                             //model.posiblesMovimientosRey(filaOrigen, columnaOrigen);
+                                            // Lógica para los movimientos del rey
+                                            int[] dxrei = {1, 1, 1, 0, 0, -1, -1, -1};
+                                            int[] dyrei = {1, 0, -1, 1, -1, 1, 0, -1};
+                                            for (int k = 0; k < 8; k++) {
+                                                int x = filaOrigen + dxrei[k];
+                                                int y = columnaOrigen + dyrei[k];
+                                                if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                    if (tablero.getElemento(x, y).matches("[PTCADR]")) {
+                                                        labels[x][y].setBackground(Color.RED);
+                                                    } else if (!tablero.getElemento(x, y).matches("[ptcadrPTCADR]")) {
+                                                        labels[x][y].setBackground(Color.GREEN);
+                                                    }
+                                                }
+                                            }
+
+
                                             break;
                                     }
     
