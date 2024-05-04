@@ -169,18 +169,18 @@ public class View extends JFrame {
                                                 for (int k = 1; k <= 2; k++) {
                                                     labels[filaOrigen - k][columnaOrigen].setBackground(Color.GREEN);
                                                 }
-                                                
-                                            } else if(!tablero.getElemento(filaOrigen - 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
-                                                
+                                            } else if (!tablero.getElemento(filaOrigen - 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
                                                 labels[filaOrigen - 1][columnaOrigen].setBackground(Color.GREEN);
-                                            }if(tablero.getElemento(filaOrigen - 1, columnaOrigen - 1).matches("[ptcadr]")){
+                                            }
+
+                                            if (columnaOrigen > 0 && tablero.getElemento(filaOrigen - 1, columnaOrigen - 1).matches("[ptcadr]")) {
                                                 labels[filaOrigen - 1][columnaOrigen - 1].setBackground(Color.RED);
-    
-                                            }if (tablero.getElemento(filaOrigen - 1, columnaOrigen + 1).matches("[ptcadr]")){
+                                            }
+
+                                            if (columnaOrigen < 7 && tablero.getElemento(filaOrigen - 1, columnaOrigen + 1).matches("[ptcadr]")) {
                                                 labels[filaOrigen - 1][columnaOrigen + 1].setBackground(Color.RED);
                                             }
                                             break;
-                                        
                                         case "T":
                                         
                                             //model.posiblesMovimientosTorre(filaOrigen, columnaOrigen);
@@ -303,7 +303,6 @@ public class View extends JFrame {
                                                     break;
                                                 }
                                             }
-
                                             
                                         break;
                                         case "D":
@@ -448,15 +447,16 @@ public class View extends JFrame {
                                                 for (int k = 1; k <= 2; k++) {
                                                     labels[filaOrigen + k][columnaOrigen].setBackground(Color.GREEN);
                                                 }
-                                                
-                                            } else if(!tablero.getElemento(filaOrigen + 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
-                                                
+                                            } else if (!tablero.getElemento(filaOrigen + 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
                                                 labels[filaOrigen + 1][columnaOrigen].setBackground(Color.GREEN);
-                                            }if(tablero.getElemento(filaOrigen + 1, columnaOrigen + 1).matches("[PTCADR]")){
-                                                labels[filaOrigen + 1][columnaOrigen + 1].setBackground(Color.RED);
-    
-                                            }if (tablero.getElemento(filaOrigen + 1, columnaOrigen - 1).matches("[PTCADR]")){
+                                            }
+
+                                            if (columnaOrigen != 0 && tablero.getElemento(filaOrigen + 1, columnaOrigen - 1).matches("[PTCADR]")) {
                                                 labels[filaOrigen + 1][columnaOrigen - 1].setBackground(Color.RED);
+                                            }
+
+                                            if (columnaOrigen != 7 && tablero.getElemento(filaOrigen + 1, columnaOrigen + 1).matches("[PTCADR]")) {
+                                                labels[filaOrigen + 1][columnaOrigen + 1].setBackground(Color.RED);
                                             }
                                             break;
                                         
