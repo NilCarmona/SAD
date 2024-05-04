@@ -759,6 +759,173 @@ public class View extends JFrame {
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
                                         actualizarTablero(tablero);
+                                        //mirar si hay jaque
+
+                                        /*if (isCheck(tablero, player1Turn)) {
+                                            System.out.println("JAQUE");
+                                        }*/
+                                        // recorrer todo el tablero y ver donde está el rey
+                                        int reiBX = 0;
+                                        int reiBY = 0;
+                                        int reiNX = 0;
+                                        int reiNY = 0;
+                                        for (int x = 0; x < 8; x++) {
+                                            for (int y = 0; y < 8; y++) {
+                                                if (tablero.getElemento(y, x).matches("[R]")) {
+                                                    
+                                                    reiBX = x;
+                                                    reiBY = y;
+                                                } else if (tablero.getElemento(y, x).matches("[r]")) {
+                                                    
+                                                    reiNX = x;
+                                                    reiNY = y;
+                                                }
+                                                
+                                                
+                                            }
+                                        }
+                                        System.out.println("Rey blanco: " + reiBY + ", " + reiBX);
+                                        System.out.println("Rey negro: " + reiNY + ", " + reiNX);
+
+                                        for (int k = 0; k < 8; k++) {
+                                            for (int l = 0; l < 8; l++) {
+                                                switch(tablero.getElemento(k, l)){
+                                                    case "P":
+                                                        if (Math.abs(k - reiNY) == 1 && Math.abs(l - reiNX) == 1) {
+                                                                System.out.println("El peón P puede matar al rey enemigo");
+                                                            }
+                                                        
+                                                        break;
+                                                    case "T":
+                                                    
+                                                        if (k == reiNY || l == reiNX) {
+                                                            boolean isPathClear = true;
+                                                            if (k == reiNY) {
+                                                                int start = Math.min(l, reiNX) + 1;
+                                                                int end = Math.max(l, reiNX);
+                                                                for (int m = start; m < end; m++) {
+                                                                    if (!tablero.getElemento(k, m).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                int start = Math.min(k, reiNY) + 1;
+                                                                int end = Math.max(k, reiNY);
+                                                                for (int n = start; n < end; n++) {
+                                                                    if (!tablero.getElemento(n, l).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("La torre T puede matar al rey enemigo");
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "C":
+                                                        int[] dxcaballo = {2, 1, -1, -2, -2, -1, 1, 2};
+                                                        int[] dycaballo = {1, 2, 2, 1, -1, -2, -2, -1};
+                                                        for (int m = 0; m < 8; m++) {
+                                                            int x = k + dxcaballo[m];
+                                                            int y = l + dycaballo[m];
+                                                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                                if (x == reiNY && y == reiNX) {
+                                                                    System.out.println("El caballo C puede matar al rey enemigo");
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "A":
+                                                        if (Math.abs(k - reiNY) == Math.abs(l - reiNX)) {
+                                                            boolean isPathClear = true;
+                                                            int startx = Math.min(k, reiNY) + 1;
+                                                            int starty = Math.min(l, reiNX) + 1;
+                                                            int endx = Math.max(k, reiNY);
+                                                            int endy = Math.max(l, reiNX);
+                                                            for (int m = startx, n = starty; m < endx && n < endy; m++, n++) {
+                                                                if (!tablero.getElemento(m, n).isEmpty()) {
+                                                                    isPathClear = false;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("El alfil A puede matar al rey enemigo");
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "D":
+                                                        if (k == reiNY || l == reiNX) {
+                                                            boolean isPathClear = true;
+                                                            if (k == reiNY) {
+                                                                int start = Math.min(l, reiNX) + 1;
+                                                                int end = Math.max(l, reiNX);
+                                                                for (int m = start; m < end; m++) {
+                                                                    if (!tablero.getElemento(k, m).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                int start = Math.min(k, reiNY) + 1;
+                                                                int end = Math.max(k, reiNY);
+                                                                for (int n = start; n < end; n++) {
+                                                                    if (!tablero.getElemento(n, l).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("La dama D puede matar al rey enemigo");
+                                                            }
+                                                        } else if (Math.abs(k - reiNY) == Math.abs(l - reiNX)) {
+                                                            boolean isPathClear = true;
+                                                            int startx = Math.min(k, reiNY) + 1;
+                                                            int starty = Math.min(l, reiNX) + 1;
+                                                            int endx = Math.max(k, reiNY);
+                                                            int endy = Math.max(l, reiNX);
+                                                            for (int m = startx, n = starty; m < endx && n < endy; m++, n++) {
+                                                                if (!tablero.getElemento(m, n).isEmpty()) {
+                                                                    isPathClear = false;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("La dama D puede matar al rey enemigo");
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "R":
+                                                        int[] dxrei = {1, 1, 1, 0, 0, -1, -1, -1};
+                                                        int[] dyrei = {1, 0, -1, 1, -1, 1, 0, -1};
+                                                        for (int m = 0; m < 8; m++) {
+                                                            int x = k + dxrei[m];
+                                                            int y = l + dyrei[m];
+                                                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                                if (x == reiNY && y == reiNX) {
+                                                                    System.out.println("El rey R puede matar al rey enemigo");
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+
+                
+
+                                                }
+                                                    
+                                                    
+                                                
+                                                
+                                            }
+                                        }
+
+
+                                        //mirar si hay jaque mate
+                                        //hayJaqueMate(tablero, player1Turn);
+
+
                                         filaOrigen = -1;
                                         columnaOrigen = -1;
                                         //funcion cambio de turno
@@ -795,6 +962,160 @@ public class View extends JFrame {
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
                                         actualizarTablero(tablero);
+
+                                        //mirar si hay jaque
+
+                                        /*if (isCheck(tablero, player2Turn)) {
+                                            System.out.println("JAQUE");
+                                        }*/
+                                        // recorrer todo el tablero y ver donde está el rey
+                                        int reiBX = 0;
+                                        int reiBY = 0;
+                                        int reiNX = 0;
+                                        int reiNY = 0;
+                                        for (int x = 0; x < 8; x++) {
+                                            for (int y = 0; y < 8; y++) {
+                                                if (tablero.getElemento(y, x).matches("[R]")) {
+                                                    
+                                                    reiBX = x;
+                                                    reiBY = y;
+                                                } else if (tablero.getElemento(y, x).matches("[r]")) {
+                                                    
+                                                    reiNX = x;
+                                                    reiNY = y;
+                                                }
+                                                
+                                                
+                                            }
+                                        }
+                                        System.out.println("Rey blanco: " + reiBY + ", " + reiBX);
+                                        System.out.println("Rey negro: " +reiNY + ", " + reiNX);
+
+                                        for (int k = 0; k < 8; k++) {
+                                            for (int l = 0; l < 8; l++) {
+                                                switch(tablero.getElemento(k, l)){
+                                                    case "p":
+                                                        if (Math.abs(k - reiBY) == 1 && Math.abs(l - reiBX) == 1) {
+                                                            System.out.println("El peón p puede matar al rey enemigo");
+                                                        }
+                                                        break;
+                                                    case "t":
+                                                        if (k == reiBY || l == reiBX) {
+                                                            boolean isPathClear = true;
+                                                            if (k == reiBY) {
+                                                                int start = Math.min(l, reiBX) + 1;
+                                                                int end = Math.max(l, reiBX);
+                                                                for (int m = start; m < end; m++) {
+                                                                    if (!tablero.getElemento(k, m).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                int start = Math.min(k, reiBY) + 1;
+                                                                int end = Math.max(k, reiBY);
+                                                                for (int n = start; n < end; n++) {
+                                                                    if (!tablero.getElemento(n, l).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("La torre t puede matar al rey enemigo");
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "c":
+                                                        int[] dxcaballo = {2, 1, -1, -2, -2, -1, 1, 2};
+                                                        int[] dycaballo = {1, 2, 2, 1, -1, -2, -2, -1};
+                                                        for (int m = 0; m < 8; m++) {
+                                                            int x = k + dxcaballo[m];
+                                                            int y = l + dycaballo[m];
+                                                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                                if (x == reiBY && y == reiBX) {
+                                                                    System.out.println("El caballo c puede matar al rey enemigo");
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "a":
+                                                        if (Math.abs(k - reiBY) == Math.abs(l - reiBX)) {
+                                                            boolean isPathClear = true;
+                                                            int startx = Math.min(k, reiBY) + 1;
+                                                            int starty = Math.min(l, reiBX) + 1;
+                                                            int endx = Math.max(k, reiBY);
+                                                            int endy = Math.max(l, reiBX);
+                                                            for (int m = startx, n = starty; m < endx && n < endy; m++, n++) {
+                                                                if (!tablero.getElemento(m, n).isEmpty()) {
+                                                                    isPathClear = false;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("El alfil a puede matar al rey enemigo");
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "d":
+                                                        if (k == reiBY || l == reiBX) {
+                                                            boolean isPathClear = true;
+                                                            if (k == reiBY) {
+                                                                int start = Math.min(l, reiBX) + 1;
+                                                                int end = Math.max(l, reiBX);
+                                                                for (int m = start; m < end; m++) {
+                                                                    if (!tablero.getElemento(k, m).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                int start = Math.min(k, reiBY) + 1;
+                                                                int end = Math.max(k, reiBY);
+                                                                for (int n = start; n < end; n++) {
+                                                                    if (!tablero.getElemento(n, l).isEmpty()) {
+                                                                        isPathClear = false;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("La dama d puede matar al rey enemigo");
+                                                            }
+                                                        } else if (Math.abs(k - reiBY) == Math.abs(l - reiBX)) {
+                                                            boolean isPathClear = true;
+                                                            int startx = Math.min(k, reiBY) + 1;
+                                                            int starty = Math.min(l, reiBX) + 1;
+                                                            int endx = Math.max(k, reiBY);
+                                                            int endy = Math.max(l, reiBX);
+                                                            for (int m = startx, n = starty; m < endx && n < endy; m++, n++) {
+                                                                if (!tablero.getElemento(m, n).isEmpty()) {
+                                                                    isPathClear = false;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (isPathClear) {
+                                                                System.out.println("La dama d puede matar al rey enemigo");
+                                                            }
+                                                        }
+                                                        break;
+                                                    case "r":
+                                                        int[] dxrei = {1, 1, 1, 0, 0, -1, -1, -1};
+                                                        int[] dyrei = {1, 0, -1, 1, -1, 1, 0, -1};
+                                                        for (int m = 0; m < 8; m++) {
+                                                            int x = k + dxrei[m];
+                                                            int y = l + dyrei[m];
+                                                            if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+                                                                if (x == reiBY && y == reiBX) {
+                                                                    System.out.println("El rey r puede matar al rey enemigo");
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                        }
+
                                         filaOrigen = -1;
                                         columnaOrigen = -1;
                                         //funcion cambio de turno
