@@ -18,6 +18,9 @@ public class Model {
     public Tablero getTablero(){
         return tablero;
     }
+    public void setTablero(Tablero tablero){
+        this.tablero = tablero;
+    }
     
     //movimientos
 

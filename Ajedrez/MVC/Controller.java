@@ -99,7 +99,7 @@ public class Controller {
                                     }
     
                                 }
-                                else if(tablero.getElemento(i, j).matches("[ptcadr]")){
+                                else if(model.getTablero().getElemento(i, j).matches("[ptcadr]")){
                                     System.out.println("Es turno de blancas");
                                     
                                 }
@@ -110,13 +110,13 @@ public class Controller {
                             }
                             else if(player2Turn){
                                 System.out.println("Turno de negras");
-                                if (tablero.getElemento(i,j).matches("[ptcadr]")) {
+                                if (model.getTablero().getElemento(i,j).matches("[ptcadr]")) {
                                     filaOrigen = i;
                                     columnaOrigen = j;
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
                                     //POSIBLES MOVIMIENTOS
                                     //model.posiblesMovimientos(tablero.getElemento(filaOrigen, columnaOrigen));
-                                    switch(tablero.getElemento(i, j)){
+                                    switch(model.getTablero().getElemento(i, j)){
                                         case "p":                                            
                                             pintarMovimientos = model.posiblesMovimientosPeonNegro(filaOrigen, columnaOrigen);
                                             break;                                        
@@ -138,7 +138,7 @@ public class Controller {
                                     }
     
                                 }
-                                else if(tablero.getElemento(i,j).matches("[PTCADR]")){
+                                else if(model.getTablero().getElemento(i,j).matches("[PTCADR]")){
                                     System.out.println("Es turno de negras");
                                     
                                 }
@@ -189,7 +189,7 @@ public class Controller {
                             columnaDestino = j;
 
                             if(player1Turn){
-                                if (tablero.getElemento(filaOrigen, columnaOrigen).matches("[PTCADR]")) {
+                                if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[PTCADR]")) {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
                                     //unicamente moverme a lo verde o rojo
                                     if (labels[filaDestino][columnaDestino].getBackground() == Color.GREEN || labels[filaDestino][columnaDestino].getBackground() == Color.RED) {
@@ -197,7 +197,7 @@ public class Controller {
                                             
                                             //comer pieza
                                             System.out.println("COMER PIEZA");
-                                            if(tablero.getElemento(filaDestino, columnaDestino).matches("[r]")){
+                                            if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[r]")){
                                                 System.out.println("GAME OVER, GANA BLANCAS");
                                                 //IMPLEMENTAR MENU ETC...
                                             }
@@ -206,7 +206,8 @@ public class Controller {
                                         }
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
-                                        view.actualizarTablero(tablero);
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
                                         filaOrigen = -1;
                                         columnaOrigen = -1;
                                         //funcion cambio de turno
@@ -226,14 +227,14 @@ public class Controller {
                                 }
                             }
                             else if(player2Turn){
-                                if (tablero.getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
+                                if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
                                     if (labels[filaDestino][columnaDestino].getBackground() == Color.GREEN || labels[filaDestino][columnaDestino].getBackground() == Color.RED) {
                                         if(labels[filaDestino][columnaDestino].getBackground() == Color.RED){
                                             
                                             //comer pieza
                                             System.out.println("COMER PIEZA");
-                                            if(tablero.getElemento(filaDestino, columnaDestino).matches("[R]")){
+                                            if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[R]")){
                                                 System.out.println("GAME OVER, GANA NEGRAS");
                                                  //IMPLEMENTAR MENU ETC...
                                             }
@@ -242,7 +243,8 @@ public class Controller {
                                         }
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
-                                        view.actualizarTablero(tablero);
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
                                         filaOrigen = -1;
                                         columnaOrigen = -1;
                                         //funcion cambio de turno
@@ -263,7 +265,7 @@ public class Controller {
                                 
                             
                             }
-                            //SUSTITUIR TODO ESTE CODIGO POR FUNCIONES CHECK Y CHECKMATE
+                            //SUSTITUIR TODO ESTE CODIGO POR FUNCIONES CHECK Y CHECKMATE en MODELO
                             int reiBX = 0;
                             int reiBY = 0;
                             int reiNX = 0;
