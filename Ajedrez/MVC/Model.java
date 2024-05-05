@@ -622,155 +622,62 @@ public class Model {
                             for (int k = 0; k < 8; k++) {
                                 for (int l = 0; l < 8; l++) {                                   
                                         //hacemos todos ya que unicamente entrara dentro de la funcion si es la que le toca, sino hara break (reutilizamos)
-                                        switch (this.tablero.getElemento(l, k)) {
+                                        
                                             
-                                            case "p":
+                                            
                                                 posibleCheck = posiblesMovimientosPeon(l, k);
                                                 if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+                                                    System.out.println("Jaque al rey blanco");                                                    
+                                                }else if (posibleCheck[reiNY][reiNX] == "rojo"){ 
                                                     System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
                                                 }
-                                                break;
-                                            case "P":
-                                                posibleCheck = posiblesMovimientosPeon(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
-                                                }
-                                                break;
-                                            case "t":
+                                                    
                                                 posibleCheck = posiblesMovimientosTorre(l, k);
                                                 if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
+                                                    System.out.println("Jaque al rey blanco");                                                    
                                                 }else if (posibleCheck[reiNY][reiNX] == "rojo") {
                                                     System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
                                                 }
-                                                break;
-                                            case "T":
-                                                posibleCheck = posiblesMovimientosTorre(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
-                                                }
-                                                break;
-                                            case "c":
+                                              
+                                                
                                                 posibleCheck = posiblesMovimientosCaballo(l, k);
                                                 if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
+                                                    System.out.println("Jaque al rey blanco");                                                   
                                                 }else if (posibleCheck[reiNY][reiNX] == "rojo") {
                                                     System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
                                                 }
-                                                break;
-                                            case "C":
-                                                posibleCheck = posiblesMovimientosCaballo(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
-                                                }
-                                                break;
-                                            case "a":
+                                                    
+                                                
+                                               
+                                            
                                                 posibleCheck = posiblesMovimientosAlfil(l, k);
                                                 if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
+                                                    System.out.println("Jaque al rey blanco");                                                  
                                                 }else if (posibleCheck[reiNY][reiNX] == "rojo") {
                                                     System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
                                                 }
-                                                break;
-                                            case "A":
-                                                posibleCheck = posiblesMovimientosAlfil(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
-                                                }
-                                                break;
-                                            case "d":
+                                                    
+                                               
+                                            
                                                 posibleCheck = posiblesMovimientosDama(l, k);
                                                 if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
+                                                    System.out.println("Jaque al rey blanco");                                                    
                                                 }else if (posibleCheck[reiNY][reiNX] == "rojo") {
                                                     System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
                                                 }
-                                                break;
-                                            case "D":
-                                                posibleCheck = posiblesMovimientosDama(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
-                                                }
-                                                break;
-                                            case "r":
+                                                    
+                                                
+                                                
+                                            
                                                 posibleCheck = posiblesMovimientosRey(l, k);
                                                 if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
+                                                    System.out.println("Jaque al rey blanco");                                                    
                                                 }else if (posibleCheck[reiNY][reiNX] == "rojo") {
                                                     System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
                                                 }
-                                                break;
-                                            case "R":
-                                                posibleCheck = posiblesMovimientosRey(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");
-                                                    //return true;
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                    //return true;
-                                                }else{
-                                                    //return false;
-                                                }
-                                                break;
-                                            default:
-                                                break;
-                                            }
+                                                    
+                                              
+                                                
                                         }
                                         
 
@@ -797,7 +704,6 @@ public class Model {
                      
                 
             
-
 
 
 
