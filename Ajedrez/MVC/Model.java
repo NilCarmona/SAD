@@ -13,6 +13,8 @@ public class Model {
     private Tablero tablero;
     //String[][] movimientos;
     String[][] posibleCheck= new String[8][8];
+    boolean jaqueBlanco;
+    boolean jaqueNegro;
     //todas las piezas
     Peon peonB;
     Peon peonN;
@@ -31,7 +33,8 @@ public class Model {
     public Model() {
         //inicializar tablero
         tablero = new Tablero();
-
+        jaqueBlanco = false;
+        jaqueNegro = false;
         //inicializar piezas
         peonB = new Peon("B");
         peonN = new Peon("N");
@@ -54,6 +57,18 @@ public class Model {
     }
     public void setTablero(Tablero tablero){
         this.tablero = tablero;
+    }
+    public void setJaqueBlanco(boolean jaque){
+        this.jaqueBlanco = jaque;
+    }
+    public boolean getJaqueBlanco(){
+        return jaqueBlanco;
+    }
+    public void setJaqueNegro(boolean jaque){
+        this.jaqueNegro = jaque;
+    }
+    public boolean getJaqueNegro(){
+        return jaqueNegro;
     }
     
 //FUNCION JAQUE
@@ -79,46 +94,49 @@ public class Model {
 
         for (int k = 0; k < 8; k++) {
             for (int l = 0; l < 8; l++) {                                   
-            //hacemos todos ya que unicamente entrara dentro de la funcion si es la que le toca, sino hara break (reutilizamos)
             posibleCheck = peonB.posiblesMovimientosPeon(l, k, tablero);            
             if (posibleCheck[reyBY][reyBX] == "rojo") {
-            System.out.println("Jaque al rey blanco");                                                    
+                jaqueBlanco = true;                                                             
             }else if (posibleCheck[reyNY][reyNX] == "rojo"){ 
-            System.out.println("Jaque al rey negro");
+                jaqueNegro = true; 
             }                                                   
             posibleCheck = torreB.posiblesMovimientosTorre(l, k, tablero);
             if (posibleCheck[reyBY][reyBX] == "rojo") {
-            System.out.println("Jaque al rey blanco");                                                    
+                jaqueBlanco = true;                                                                
             }else if (posibleCheck[reyNY][reyNX] == "rojo"){
-            System.out.println("Jaque al rey negro");
+                jaqueNegro = true;
             }
             posibleCheck = caballoB.posiblesMovimientosCaballo(l, k, tablero);
             if (posibleCheck[reyBY][reyBX] == "rojo") {
-            System.out.println("Jaque al rey blanco");                                                   
+                jaqueBlanco = true;                                                       
             }else if (posibleCheck[reyNY][reyNX] == "rojo"){
-            System.out.println("Jaque al rey negro");
+                jaqueNegro = true;           
             }                      
             posibleCheck = alfilB.posiblesMovimientosAlfil(l, k, tablero);
             if (posibleCheck[reyBY][reyBX] == "rojo") {
-            System.out.println("Jaque al rey blanco");                                                  
+                jaqueBlanco = true;                                                              
             }else if (posibleCheck[reyNY][reyNX] == "rojo"){
-            System.out.println("Jaque al rey negro");
+                jaqueNegro = true;             
             }                            
             posibleCheck = damaB.posiblesMovimientosDama(l, k, tablero);
             if (posibleCheck[reyBY][reyBX] == "rojo") {
-            System.out.println("Jaque al rey blanco");                                                    
+                jaqueBlanco = true;                                                         
             }else if (posibleCheck[reyNY][reyNX] == "rojo"){
-            System.out.println("Jaque al rey negro");
+                jaqueNegro = true;             
             }
             posibleCheck = reyB.posiblesMovimientosRey(l, k, tablero);
             if (posibleCheck[reyBY][reyBX] == "rojo") {
-            System.out.println("Jaque al rey blanco");                                                    
+                jaqueBlanco = true;                                                                
             }else if (posibleCheck[reyNY][reyNX] == "rojo"){
-            System.out.println("Jaque al rey negro");
+                jaqueNegro = true;             
             }
             }
         }
         
+        //jaqueMate();
+        
+        
+           
     }
 }
 

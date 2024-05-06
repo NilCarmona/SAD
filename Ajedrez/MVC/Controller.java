@@ -320,6 +320,13 @@ public class Controller {
                                 System.out.println("CHECK");
                             }*/
                             model.check();
+                            
+                            if(model.getJaqueBlanco()){
+                                System.out.println("JAQUE BLANCO");
+                            }
+                            if(model.getJaqueNegro()){
+                                System.out.println("JAQUE NEGRO");
+                            }
 
                             
                             
