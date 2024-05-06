@@ -329,22 +329,68 @@ public class Controller {
                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[P]")&& filaDestino == 0){
                                     //escojer
                                     //view.....(menu)
-                                    
-                                    if(damaBlancaMuerta){
-                                    tablero.setElemento(filaDestino, columnaDestino, "D");
-                                    model.setTablero(tablero);
-                                    view.actualizarTablero(model.getTablero());
-                                    damaBlancaMuerta = false;
+                                    String[] options = {"DAMA", "CABALLO", "ALFIL", "TORRE"};
+                                    int choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                                    if (choice == 0) {
+                                        // Code for Option 1
+                                        if(damaBlancaMuerta){
+                                            tablero.setElemento(filaDestino, columnaDestino, "D");
+                                            model.setTablero(tablero);
+                                            view.actualizarTablero(model.getTablero());
+                                            damaBlancaMuerta = false;                                           
+                                            }
+                                    } else if (choice == 1) {
+                                        tablero.setElemento(filaDestino, columnaDestino, "C");
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
+                                            
+                                    } else if (choice == 2) {
+                                        // Code for Option 3
+                                        tablero.setElemento(filaDestino, columnaDestino, "A");
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
+                                        
+                                    } else if (choice == 3) {
+                                        // Code for Option 4
+                                        tablero.setElemento(filaDestino, columnaDestino, "T");
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
                                     }
+                                    
                                 
                             }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[p]")&& filaDestino == 7){
                                     //escojer
-                                    if(damaNegraMuerta){
-                                    tablero.setElemento(filaDestino, columnaDestino, "d");
-                                    model.setTablero(tablero);
-                                    view.actualizarTablero(model.getTablero());
-                                    damaNegraMuerta = false;
-                                    }
+                                    //view.....(menu)
+                                    String[] options = {"DAMA", "CABALLO", "ALFIL", "TORRE"};
+                                    int choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                                    if (choice == 0) {
+                                        // Code for Option 1
+                                        if(damaNegraMuerta){
+                                            tablero.setElemento(filaDestino, columnaDestino, "d");
+                                            model.setTablero(tablero);
+                                            view.actualizarTablero(model.getTablero());
+                                            damaNegraMuerta = false;                                            
+                                            }
+                                    } else if (choice == 1) {
+                                        tablero.setElemento(filaDestino, columnaDestino, "c");
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
+                                            
+                                    } else if (choice == 2) {
+                                        // Code for Option 3
+                                        tablero.setElemento(filaDestino, columnaDestino, "a");
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
+                                        
+                                    } else if (choice == 3) {
+                                        // Code for Option 4
+                                        tablero.setElemento(filaDestino, columnaDestino, "t");
+                                        model.setTablero(tablero);
+                                        view.actualizarTablero(model.getTablero());
+                                    }                               
+
                             }
                             model.check();
                             
