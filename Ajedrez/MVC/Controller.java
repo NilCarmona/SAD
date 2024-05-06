@@ -22,14 +22,14 @@ public class Controller {
         
         model = new Model();
         view = new View();
-        labels = view.getLabels();
+        labels = view.getLabels(); //labels temporales
         view.setVisible(true);
         tablero = model.getTablero();
         view.actualizarTablero(tablero);
-        view.addMouseListener(new MiMouseListener());
+        view.addMouseListener(new MiMouseListener()); //añadir listener a la vista
                 
     }
-
+    //LOGICA DE LOS LISTENERS DE MOUSE (MOUSELISTENER) 
     private class MiMouseListener implements MouseListener {
         private int filaOrigen = -1;
         private int columnaOrigen = -1;
@@ -53,18 +53,21 @@ public class Controller {
             
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if (view.labels[i][j] == e.getSource()) {
+                    if (view.getLabels()[i][j] == e.getSource()) {
                         //ESTO DEBERIA ESTAR EN EL CONTROLADOR PERO LOS PRINTS COMO VIEW Y LOS MOVIMIENTOS COMO MODEL
                         //1 CLICK: ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) TENER EN CUENTA LOS BORDES
-                        if (filaOrigen == -1 && columnaOrigen == -1 || ((model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")) && labels[i][j].getBackground() != Color.RED)) {
+                        if (filaOrigen == -1 && columnaOrigen == -1 || ((model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")) && view.getLabels()[i][j].getBackground() != Color.RED)) {
                             System.out.println("PRIMER CLICK: " + i + ", " + j);
                             //para resetear cuando cancelo mov
                             for (int k = 0; k < 8; k++) {
                                 for (int l = 0; l < 8; l++) {
                                     if ((k + l) % 2 == 0) {
                                         labels[k][l].setBackground(Color.WHITE);
-                                    } else {
+                                        //view.setLabels(labels);
+                                        //view.getLabels()[k][l].setBackground(Color.GRAY);
+                                    }else{
                                         labels[k][l].setBackground(Color.GRAY);
+                                        //view.setLabels(labels);
                                     }
                                 }
                             }
@@ -75,6 +78,8 @@ public class Controller {
                                     columnaOrigen = j;
                                     //VIEW
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
+                                    //view.setLabels(labels);
+                                    //view.getLabels()[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
                                     
                                     //POSIBLES MOVIMIENTOS
                                    
@@ -105,7 +110,7 @@ public class Controller {
                                     
                                 }
                                 else {
-                                    System.out.println("No hay piezas tuyas en esa posicion");
+                                    System.out.println("No hay piezas en esa posicion");
                                 }
                                 
                             }
@@ -115,6 +120,8 @@ public class Controller {
                                     filaOrigen = i;
                                     columnaOrigen = j;
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
+                                    //view.setLabels(labels);
+                                    //view.getLabels()[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
                                     //POSIBLES MOVIMIENTOS
                                     //model.posiblesMovimientos(tablero.getElemento(filaOrigen, columnaOrigen));
                                     switch(model.getTablero().getElemento(i, j)){
@@ -144,23 +151,52 @@ public class Controller {
                                     
                                 }
                                 else {
-                                    System.out.println("No hay piezas tuyas en esa posicion");
+                                    System.out.println("No hay piezas en esa posicion");
                                 }
 
                                 
                             }
                         //pintar los movimientos almacenados en pintarMovimientos
                         for (int k = 0; k < 8; k++) {
-                            for (int l = 0; l < 8; l++) {
+                            for (int l = 0; l < 8; l++) {                                
+
                                 if (pintarMovimientos[k][l] == "verde") {
+                                    //view.getLabels()[k][l].setBackground(Color.GREEN);
+                                    //pintarMovimientos[k][l]=null;
                                     labels[k][l].setBackground(Color.GREEN);
+                                    //view.setLabels(labels);
                                     pintarMovimientos[k][l]=null;
                                 } else if (pintarMovimientos[k][l] == "rojo") {
+                                    //view.getLabels()[k][l].setBackground(Color.RED);
+                                    //pintarMovimientos[k][l]=null;
                                     labels[k][l].setBackground(Color.RED);
+                                    //view.setLabels(labels);
                                     pintarMovimientos[k][l]=null;
+
+                                }else{
+                                                                       
+                                    if ((k + l) % 2 == 0) {//pintar los cuadros
+                                    //view.getLabels()[k][l].setBackground(Color.WHITE);
+                                    labels[k][l].setBackground(Color.WHITE);
+                                    //view.setLabels(labels);
+                                    
+                                } else {
+                                    labels[k][l].setBackground(Color.GRAY);
+                                    //view.setLabels(labels);
+                                }
+
                                 }
                             }
                         }
+                        if(model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")){
+                            System.out.println("Pieza seleccionada: " + model.getTablero().getElemento(i, j));
+                        }
+                        else{
+                            System.out.println("No hay pieza seleccionada");
+                        }
+                        labels[i][j].setBackground(Color.YELLOW);
+
+                        view.setLabels(labels);
 
                         //2 clikc: AQUI ES PARA EL MOVIMIENTO
 
@@ -176,9 +212,13 @@ public class Controller {
                             for (int k = 0; k < 8; k++) {
                                 for (int l = 0; l < 8; l++) {
                                     if ((k + l) % 2 == 0) {
+                                        //view.getLabels()[k][l].setBackground(Color.WHITE);
                                         labels[k][l].setBackground(Color.WHITE);
+                                        //view.setLabels(labels);
+                                        
                                     } else {
                                         labels[k][l].setBackground(Color.GRAY);
+                                        //view.setLabels(labels);
                                     }
                                 }
                             }              
@@ -193,8 +233,8 @@ public class Controller {
                                 if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[PTCADR]")) {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
                                     //unicamente moverme a lo verde o rojo
-                                    if (labels[filaDestino][columnaDestino].getBackground() == Color.GREEN || labels[filaDestino][columnaDestino].getBackground() == Color.RED) {
-                                        if(labels[filaDestino][columnaDestino].getBackground() == Color.RED){
+                                    if (view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.GREEN || view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED) {
+                                        if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){
                                             
                                             //comer pieza
                                             System.out.println("COMER PIEZA");
@@ -225,13 +265,14 @@ public class Controller {
                                 }
                                 else{
                                     System.out.println("Es turno de blancas");
+
                                 }
                             }
                             else if(player2Turn){
                                 if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
-                                    if (labels[filaDestino][columnaDestino].getBackground() == Color.GREEN || labels[filaDestino][columnaDestino].getBackground() == Color.RED) {
-                                        if(labels[filaDestino][columnaDestino].getBackground() == Color.RED){
+                                    if (view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.GREEN || view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED) {
+                                        if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){
                                             
                                             //comer pieza
                                             System.out.println("COMER PIEZA");
@@ -269,6 +310,7 @@ public class Controller {
                             //SUSTITUIR TODO ESTE CODIGO POR FUNCIONES CHECK Y CHECKMATE en MODELO
                             //CHECK     
                             /*if(model.check()){
+                                //MENU
                                 System.out.println("CHECK");
                             }*/
                             model.check();

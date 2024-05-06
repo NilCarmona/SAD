@@ -10,14 +10,14 @@ public class View extends JFrame {
 
     private static final int FILAS = 8;
     private static final int COLUMNAS = 8;
-    JPanel panel = new JPanel(new GridLayout(FILAS, COLUMNAS));
-    JLabel [][] labels ;
+    private JPanel panel = new JPanel(new GridLayout(FILAS, COLUMNAS));
+    private JLabel [][] labels ;
     //Tablero tablero;
 
    
     
     
-    
+    //CONSTRUCTOR
     public View() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Tablero de Ajedrez");

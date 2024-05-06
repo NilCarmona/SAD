@@ -588,75 +588,53 @@ public class Model {
     return movimientos;
     }
 //FUNCION JAQUE
-    public void check(){
-
-        
+    public void check(){        
         //encontrar rei
+        int reiBX = 0;
+        int reiBY = 0;
+        int reiNX = 0;
+        int reiNY = 0;
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (tablero.getElemento(y, x).matches("[R]")) {
+                    reiBX = x;
+                    reiBY = y;
+                } else if (tablero.getElemento(y, x).matches("[r]")) {
+                    reiNX = x;
+                    reiNY = y;
+                }
+            }
+        }
+        System.out.println("Rey blanco: " + reiBY + ", " + reiBX);
+        System.out.println("Rey negro: " +reiNY + ", " + reiNX);
 
-
-
-                            int reiBX = 0;
-                            int reiBY = 0;
-                            int reiNX = 0;
-                            int reiNY = 0;
-                            for (int x = 0; x < 8; x++) {
-                                for (int y = 0; y < 8; y++) {
-                                if (tablero.getElemento(y, x).matches("[R]")) {
-                                                    
-                                    reiBX = x;
-                                    reiBY = y;
-                                } else if (tablero.getElemento(y, x).matches("[r]")) {
-                                                    
-                                    reiNX = x;
-                                    reiNY = y;
-                                }
-                                                
-                                                
-                                }
-                            }
-                            System.out.println("Rey blanco: " + reiBY + ", " + reiBX);
-                            System.out.println("Rey negro: " +reiNY + ", " + reiNX);
-
-                            
-
-                            for (int k = 0; k < 8; k++) {
-                                for (int l = 0; l < 8; l++) {                                   
-                                        //hacemos todos ya que unicamente entrara dentro de la funcion si es la que le toca, sino hara break (reutilizamos)
-                                        
-                                            
-                                            
-                                                posibleCheck = posiblesMovimientosPeon(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");                                                    
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo"){ 
-                                                    System.out.println("Jaque al rey negro");
-                                                }
-                                                    
-                                                posibleCheck = posiblesMovimientosTorre(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");                                                    
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                }
-                                              
-                                                
-                                                posibleCheck = posiblesMovimientosCaballo(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");                                                   
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                }
-                                                    
-                                                
-                                               
-                                            
-                                                posibleCheck = posiblesMovimientosAlfil(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");                                                  
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                }
-                                                    
+        for (int k = 0; k < 8; k++) {
+            for (int l = 0; l < 8; l++) {                                   
+            //hacemos todos ya que unicamente entrara dentro de la funcion si es la que le toca, sino hara break (reutilizamos)
+            posibleCheck = posiblesMovimientosPeon(l, k);
+            if (posibleCheck[reiBY][reiBX] == "rojo") {
+            System.out.println("Jaque al rey blanco");                                                    
+            }else if (posibleCheck[reiNY][reiNX] == "rojo"){ 
+            System.out.println("Jaque al rey negro");
+            }                                                   
+            posibleCheck = posiblesMovimientosTorre(l, k);
+            if (posibleCheck[reiBY][reiBX] == "rojo") {
+            System.out.println("Jaque al rey blanco");                                                    
+            }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+            System.out.println("Jaque al rey negro");
+            }
+            posibleCheck = posiblesMovimientosCaballo(l, k);
+            if (posibleCheck[reiBY][reiBX] == "rojo") {
+            System.out.println("Jaque al rey blanco");                                                   
+            }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+            System.out.println("Jaque al rey negro");
+            }                      
+            posibleCheck = posiblesMovimientosAlfil(l, k);
+            if (posibleCheck[reiBY][reiBX] == "rojo") {
+            System.out.println("Jaque al rey blanco");                                                  
+            }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+            System.out.println("Jaque al rey negro");
+            }
                                                
                                             
                                                 posibleCheck = posiblesMovimientosDama(l, k);
