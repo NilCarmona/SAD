@@ -85,22 +85,23 @@ public class Controller {
                                    
                                     switch(model.getTablero().getElemento(i, j)){
                                         case "P":
-                                             pintarMovimientos = model.posiblesMovimientosPeon(filaOrigen, columnaOrigen);   
-                                            break;
+                                             pintarMovimientos = model.peonB.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());   
+                                            
+                                             break;
                                         case "T":
-                                            pintarMovimientos = model.posiblesMovimientosTorre(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.torreB.posiblesMovimientosTorre(filaOrigen, columnaOrigen,model.getTablero());
                                             break;
                                         case "C":
-                                            pintarMovimientos = model.posiblesMovimientosCaballo(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.caballoB.posiblesMovimientosCaballo(filaOrigen, columnaOrigen,model.getTablero());
                                             break;
                                         case "A":
-                                            pintarMovimientos = model.posiblesMovimientosAlfil(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.alfilB.posiblesMovimientosAlfil(filaOrigen, columnaOrigen, model.getTablero());
                                             break;                                               
                                         case "D":
-                                            pintarMovimientos = model.posiblesMovimientosDama(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.damaB.posiblesMovimientosDama(filaOrigen, columnaOrigen,model.getTablero());
                                             break;
                                         case "R":
-                                            pintarMovimientos = model.posiblesMovimientosRey(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.reyB.posiblesMovimientosRey(filaOrigen, columnaOrigen,model.getTablero());
                                             break;                                        
                                     }
     
@@ -126,22 +127,23 @@ public class Controller {
                                     //model.posiblesMovimientos(tablero.getElemento(filaOrigen, columnaOrigen));
                                     switch(model.getTablero().getElemento(i, j)){
                                         case "p":                                            
-                                            pintarMovimientos = model.posiblesMovimientosPeon(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.peonN.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());
+                                            
                                             break;                                        
                                         case "t":
-                                            pintarMovimientos = model.posiblesMovimientosTorre(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.torreN.posiblesMovimientosTorre(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                         case "c":
-                                            pintarMovimientos = model.posiblesMovimientosCaballo(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.caballoN.posiblesMovimientosCaballo(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                         case "a":                                            
-                                            pintarMovimientos=model.posiblesMovimientosAlfil(filaOrigen, columnaOrigen);
+                                            pintarMovimientos=model.alfilN.posiblesMovimientosAlfil(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                         case "d":
-                                            pintarMovimientos = model.posiblesMovimientosDama(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.damaN.posiblesMovimientosDama(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                         case "r":                                            
-                                            pintarMovimientos = model.posiblesMovimientosRey(filaOrigen, columnaOrigen);
+                                            pintarMovimientos = model.reyN.posiblesMovimientosRey(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                     }
     
@@ -165,7 +167,9 @@ public class Controller {
                                     //pintarMovimientos[k][l]=null;
                                     labels[k][l].setBackground(Color.GREEN);
                                     //view.setLabels(labels);
+
                                     pintarMovimientos[k][l]=null;
+                                    
                                 } else if (pintarMovimientos[k][l] == "rojo") {
                                     //view.getLabels()[k][l].setBackground(Color.RED);
                                     //pintarMovimientos[k][l]=null;
@@ -188,6 +192,8 @@ public class Controller {
                                 }
                             }
                         }
+                        //model.movimientos= null;
+
                         if(model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")){
                             System.out.println("Pieza seleccionada: " + model.getTablero().getElemento(i, j));
                         }
@@ -314,6 +320,7 @@ public class Controller {
                                 System.out.println("CHECK");
                             }*/
                             model.check();
+
                             
                             
 
