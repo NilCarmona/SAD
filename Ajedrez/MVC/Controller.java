@@ -313,29 +313,19 @@ public class Controller {
                                 
                             
                             }
-                            //SUSTITUIR TODO ESTE CODIGO POR FUNCIONES CHECK Y CHECKMATE en MODELO
-                            //CHECK     
-                            /*if(model.check()){
-                                //MENU
-                                System.out.println("CHECK");
-                            }*/
                             model.check();
                             
                             if(model.getJaqueBlanco()){
-                                System.out.println("JAQUE BLANCO");
+                                System.out.println("JAQUE AL BLANCO");
                             }
                             if(model.getJaqueNegro()){
-                                System.out.println("JAQUE NEGRO");
-                            }
-
-                            
-                            
-
+                                System.out.println("JAQUE Al NEGRO");
+                            }                        
                         }
                     }
                 }
-                }
-            }            
+            }
+        }            
 
         }
 
@@ -347,8 +337,6 @@ public class Controller {
         @Override
         public void mouseReleased(MouseEvent e) {
             // Empty implementation
-            
-
         }
 
         @Override

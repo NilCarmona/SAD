@@ -1,17 +1,11 @@
 package MVC;
 
 import rsc.piezas.*;
-import java.util.Arrays;
-
-
-
-import rsc.tablero.Tablero; // Replace "some.package" with the actual package name of the Tablero class
-
+import rsc.tablero.Tablero; 
 
 public class Model {
     //variables
     private Tablero tablero;
-    //String[][] movimientos;
     String[][] posibleCheck= new String[8][8];
     boolean jaqueBlanco;
     boolean jaqueNegro;
@@ -48,9 +42,6 @@ public class Model {
         damaN = new Dama("N");
         reyB = new Rey("B");
         reyN = new Rey("N");
-
-       // movimientos = new String[8][8];
-
     }
     public Tablero getTablero(){
         return tablero;
@@ -91,6 +82,8 @@ public class Model {
         }
         System.out.println("Rey blanco: " + reyBY + ", " + reyBX);
         System.out.println("Rey negro: " +reyNY + ", " + reyNX);
+        jaqueBlanco = false;
+        jaqueNegro = false;
 
         for (int k = 0; k < 8; k++) {
             for (int l = 0; l < 8; l++) {                                   
@@ -131,14 +124,13 @@ public class Model {
                 jaqueNegro = true;             
             }
             }
-        }
-        
-        //jaqueMate();
-        
-        
-           
+        }   
     }
 }
+
+
+
+
 
 
 

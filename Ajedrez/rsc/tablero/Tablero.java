@@ -31,7 +31,12 @@ public class Tablero {
     }
 
     public String getElemento(int fila, int columna) {
-        return casillas[fila][columna].getValor();
+        if(fila < 0 || fila > 7 || columna < 0 || columna > 7) {
+            return "";
+        }else{
+            return casillas[fila][columna].getValor();
+        }
+        
     }
 
     public void setElemento(int fila, int columna, String valor) {

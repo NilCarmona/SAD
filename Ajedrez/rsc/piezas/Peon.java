@@ -22,7 +22,9 @@ public class Peon {
             }
             }
         } else if (!tablero.getElemento(filaOrigen - 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
+            if(filaOrigen > 0){
             movimientos[filaOrigen - 1][columnaOrigen] = "verde";
+            }
         }
 
         if (columnaOrigen > 0 && tablero.getElemento(filaOrigen - 1, columnaOrigen - 1).matches("[ptcadr]")) {
@@ -41,7 +43,9 @@ public class Peon {
                 }
             }
         } else if (!tablero.getElemento(filaOrigen + 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
+            if(filaOrigen < 7){
             movimientos[filaOrigen + 1][columnaOrigen] = "verde";
+            }
         }
 
         if (columnaOrigen > 0 && tablero.getElemento(filaOrigen + 1, columnaOrigen - 1).matches("[PTCADR]")) {
