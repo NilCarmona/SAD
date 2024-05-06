@@ -15,6 +15,8 @@ public class Controller {
     private boolean player1Turn = true;
     private boolean player2Turn = false;
     private boolean gameOver = false; 
+    private boolean damaBlancaMuerta = false;
+    private boolean damaNegraMuerta = false;
 
 
     //constructor
@@ -247,6 +249,10 @@ public class Controller {
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[r]")){
                                                 System.out.println("GAME OVER, GANA BLANCAS");
                                                 //IMPLEMENTAR MENU ETC...
+                                            }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[d]")){
+                                                System.out.println("DAMA NEGRA MUERTA");
+                                                damaNegraMuerta = true;
+                                                //IMPLEMENTAR MENU ETC...
                                             }
                                             
 
@@ -285,7 +291,13 @@ public class Controller {
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[R]")){
                                                 System.out.println("GAME OVER, GANA NEGRAS");
                                                  //IMPLEMENTAR MENU ETC...
+                                            }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[D]")){
+                                                System.out.println("DAMA BLANCA MUERTA");
+                                                damaBlancaMuerta = true;
+
+                                                 //IMPLEMENTAR MENU ETC...
                                             }
+
                                             
 
                                         }
@@ -312,6 +324,27 @@ public class Controller {
                             
                                 
                             
+                            }
+                            //PROMOCION DE PEON
+                            if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[P]")&& filaDestino == 0){
+                                    //escojer
+                                    //view.....(menu)
+                                    
+                                    if(damaBlancaMuerta){
+                                    tablero.setElemento(filaDestino, columnaDestino, "D");
+                                    model.setTablero(tablero);
+                                    view.actualizarTablero(model.getTablero());
+                                    damaBlancaMuerta = false;
+                                    }
+                                
+                            }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[p]")&& filaDestino == 7){
+                                    //escojer
+                                    if(damaNegraMuerta){
+                                    tablero.setElemento(filaDestino, columnaDestino, "d");
+                                    model.setTablero(tablero);
+                                    view.actualizarTablero(model.getTablero());
+                                    damaNegraMuerta = false;
+                                    }
                             }
                             model.check();
                             
