@@ -620,58 +620,35 @@ public class Model {
             posibleCheck = posiblesMovimientosTorre(l, k);
             if (posibleCheck[reiBY][reiBX] == "rojo") {
             System.out.println("Jaque al rey blanco");                                                    
-            }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+            }else if (posibleCheck[reiNY][reiNX] == "rojo"){
             System.out.println("Jaque al rey negro");
             }
             posibleCheck = posiblesMovimientosCaballo(l, k);
             if (posibleCheck[reiBY][reiBX] == "rojo") {
             System.out.println("Jaque al rey blanco");                                                   
-            }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+            }else if (posibleCheck[reiNY][reiNX] == "rojo"){
             System.out.println("Jaque al rey negro");
             }                      
             posibleCheck = posiblesMovimientosAlfil(l, k);
             if (posibleCheck[reiBY][reiBX] == "rojo") {
             System.out.println("Jaque al rey blanco");                                                  
-            }else if (posibleCheck[reiNY][reiNX] == "rojo") {
+            }else if (posibleCheck[reiNY][reiNX] == "rojo"){
+            System.out.println("Jaque al rey negro");
+            }                            
+            posibleCheck = posiblesMovimientosDama(l, k);
+            if (posibleCheck[reiBY][reiBX] == "rojo") {
+            System.out.println("Jaque al rey blanco");                                                    
+            }else if (posibleCheck[reiNY][reiNX] == "rojo"){
             System.out.println("Jaque al rey negro");
             }
-                                               
-                                            
-                                                posibleCheck = posiblesMovimientosDama(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");                                                    
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                }
-                                                    
-                                                
-                                                
-                                            
-                                                posibleCheck = posiblesMovimientosRey(l, k);
-                                                if (posibleCheck[reiBY][reiBX] == "rojo") {
-                                                    System.out.println("Jaque al rey blanco");                                                    
-                                                }else if (posibleCheck[reiNY][reiNX] == "rojo") {
-                                                    System.out.println("Jaque al rey negro");
-                                                }
-                                                    
-                                              
-                                                
-                                        }
-                                        
-
-
-                                        
-                                        
-                        
-                                           
-
-    
-
-                                    
-                                    }
-                                
-                                
-                                
+            posibleCheck = posiblesMovimientosRey(l, k);
+            if (posibleCheck[reiBY][reiBX] == "rojo") {
+            System.out.println("Jaque al rey blanco");                                                    
+            }else if (posibleCheck[reiNY][reiNX] == "rojo"){
+            System.out.println("Jaque al rey negro");
+            }
+            }
+        }
     }
 }
 
