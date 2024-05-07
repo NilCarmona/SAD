@@ -179,7 +179,6 @@ public class Controller {
                         view.setLabels(labels);
 
                         //2 clikc: AQUI ES PARA EL MOVIMIENTO
-
                         }else if ( filaOrigen != -1 && columnaOrigen != -1){                            
                             //cancelar movimiento
                             if (filaOrigen == i && columnaOrigen == j) {                      
@@ -216,29 +215,19 @@ public class Controller {
                                                 damaNegraMuerta = true;                                                
                                             }
                                         }
-                                        //HACER FUNCION MOVER PIEZA
-                                        tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
-                                        tablero.setElemento(filaOrigen, columnaOrigen, "");
-                                        model.setTablero(tablero);
-                                        view.actualizarTablero(model.getTablero());
-                                        filaOrigen = -1;
-                                        columnaOrigen = -1;
-                                        //funcion cambio de turno
-                                        player1Turn = false;
-                                        player2Turn = true;
+                                        //MOVER PIEZA
+                                        moverPieza(filaOrigen, columnaOrigen, filaDestino, columnaDestino, tablero);
                                     }
                                     else{                                        
                                         view.mostrarMensajeTemporal("Movimiento invalido",750);
-                                    }                 
-                                    
+                                    }                                   
                                 }
                                 else{
                                     view.mostrarMensaje("Es turno de blancas");
                                 }
                             }
                             else if(player2Turn){
-                                if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
-                                    //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
+                                if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {                                    
                                     if (view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.GREEN || view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED) {
                                         if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){                                           
                                                                                         
@@ -250,16 +239,7 @@ public class Controller {
                                                 damaBlancaMuerta = true;                                                 
                                             }
                                         }
-                                        //HACER FUNCION MOVER PIEZA
-                                        tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
-                                        tablero.setElemento(filaOrigen, columnaOrigen, "");
-                                        model.setTablero(tablero);
-                                        view.actualizarTablero(model.getTablero());
-                                        filaOrigen = -1;
-                                        columnaOrigen = -1;
-                                        //funcion cambio de turno
-                                        player2Turn = false;
-                                        player1Turn = true;
+                                        moverPieza(filaOrigen, columnaOrigen, filaDestino, columnaDestino, tablero);
                                     }
                                     else{                                        
                                         view.mostrarMensajeTemporal("Movimiento invalido", 750);                                       
@@ -294,8 +274,7 @@ public class Controller {
                                 } else if (option == 0) {
                                     // Ver repetición
                                     // Aquí debes implementar la lógica para mostrar la repetición de la partida
-                                }
-                                
+                                }                        
 
                             }
                                             
@@ -317,49 +296,28 @@ public class Controller {
                     choice = view.mostrarPromocion(options);                    
                 }
 
-                if (choice == 0) {
-                    // Code for Option 1
+                if (choice == 0) {                    
                     if(damaBlancaMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "D");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
+                        setActualizar("D");
                         damaBlancaMuerta = false; 
-
                     }else if(!damaBlancaMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "C");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
+                        setActualizar("C");
                     }
                 } else if (choice == 1) {
                     if(damaBlancaMuerta){
-                    tablero.setElemento(filaDestino, columnaDestino, "C");
-                    model.setTablero(tablero);
-                    view.actualizarTablero(model.getTablero());
+                        setActualizar("C");
                     }else if(!damaBlancaMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "A");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
-                    }
-                        
-                } else if (choice == 2) {
-                    // Code for Option 3
+                        setActualizar("A");
+                    }                        
+                } else if (choice == 2) {                    
                     if(damaBlancaMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "A");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
+                        setActualizar("A");
                     }else if(!damaBlancaMuerta){ 
-                        tablero.setElemento(filaDestino, columnaDestino, "T");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
-                    }
-                               
-                } else{
-                    // Code for Option 4
-                    tablero.setElemento(filaDestino, columnaDestino, "T");
-                    model.setTablero(tablero);
-                    view.actualizarTablero(model.getTablero());
-                }
-                
+                        setActualizar("T");
+                    }                               
+                } else{                    
+                    setActualizar("T");
+                }                
             
         }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[p]")&& filaDestino == 7){
                 //escojer                
@@ -369,50 +327,57 @@ public class Controller {
                     choice = view.mostrarPromocion(options);                    
                 }else{
                     String[] options = {"CABALLO", "ALFIL", "TORRE"};
-                    choice = view.mostrarPromocion(options);
-                    
+                    choice = view.mostrarPromocion(options);                    
                 }                
                 if (choice == 0) {                    
                     if(damaNegraMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "d");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
+                        setActualizar("d");
                         damaNegraMuerta = false; 
 
                     }else if(!damaNegraMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "c");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
+                        setActualizar("c");
                     }
                 } else if (choice == 1) {
                     if(damaNegraMuerta){
-                    tablero.setElemento(filaDestino, columnaDestino, "c");
-                    model.setTablero(tablero);
-                    view.actualizarTablero(model.getTablero());
+                        setActualizar("t");
+              
                     }else if(!damaNegraMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "a");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
-                    }
-                        
+                        setActualizar("a");
+                    }                        
                 } else if (choice == 2) {                    
                     if(damaNegraMuerta){
-                        tablero.setElemento(filaDestino, columnaDestino, "a");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
+                        setActualizar("a");
                     }else if(!damaNegraMuerta){ 
-                        tablero.setElemento(filaDestino, columnaDestino, "t");
-                        model.setTablero(tablero);
-                        view.actualizarTablero(model.getTablero());
-                    }
-                               
+                        setActualizar("t");
+                    }                               
                 } else{                    
-                    tablero.setElemento(filaDestino, columnaDestino, "t");
-                    model.setTablero(tablero);
-                    view.actualizarTablero(model.getTablero());
-                }                               
+                    setActualizar("t");
+                }                     
 
         }
+        }
+        public void cambioTurno(){
+            if(player1Turn){
+                player1Turn = false;
+                player2Turn = true;
+            }else if(player2Turn){
+                player2Turn = false;
+                player1Turn = true;
+            }
+        }
+        public void setActualizar(String pieza){
+            tablero.setElemento(filaDestino, columnaDestino, pieza);
+            model.setTablero(tablero);
+            view.actualizarTablero(model.getTablero());
+        }
+        public void moverPieza(int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino, Tablero tablero){
+            tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
+            tablero.setElemento(filaOrigen, columnaOrigen, "");
+            model.setTablero(tablero);
+            view.actualizarTablero(model.getTablero());
+            filaOrigen = -1;
+            columnaOrigen = -1;                                       
+            cambioTurno();
         }
 
         @Override

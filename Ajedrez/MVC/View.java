@@ -8,16 +8,12 @@ import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class View extends JFrame {
+public class View extends JFrame { //Vista marco de la aplicación
 
     private static final int FILAS = 8;
     private static final int COLUMNAS = 8;
-    private JPanel panel = new JPanel(new GridLayout(FILAS, COLUMNAS));
-    private JLabel [][] labels ;
-    //Tablero tablero;
-
-   
-    
+    private JPanel panel = new JPanel(new GridLayout(FILAS, COLUMNAS)); //lienzo
+    private JLabel [][] labels ;   //matriz de etiquetas
     
     //CONSTRUCTOR
     public View() {
@@ -141,8 +137,6 @@ public class View extends JFrame {
     public void setLabels(JLabel[][] labels) {
         this.labels = labels;
     }
-
-
 }
 
     
