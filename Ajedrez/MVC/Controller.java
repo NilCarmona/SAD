@@ -210,9 +210,8 @@ public class Controller {
                                             //MATAR pieza
                                             view.mostrarMensajeTemporal("eliminando pieza",300);
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[r]")){
-                                                System.out.println("GAME OVER, GANA BLANCAS");
-                                                gameOver = true;
-                                                //IMPLEMENTAR MENU ETC...
+                                                view.mostrarMensaje("GAME OVER, GANA BLANCAS");
+                                                gameOver = true;                                                
                                             }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[d]")){
                                                 damaNegraMuerta = true;                                                
                                             }
@@ -245,8 +244,8 @@ public class Controller {
                                                                                         
                                             view.mostrarMensajeTemporal("eliminando pieza",300);
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[R]")){
-                                                System.out.println("GAME OVER, GANA NEGRAS");
-                                                 //IMPLEMENTAR MENU ETC...
+                                                view.mostrarMensaje("GAME OVER, GANA NEGRAS");
+                                                gameOver = true;                                                 
                                             }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[D]")){                                                
                                                 damaBlancaMuerta = true;                                                 
                                             }
@@ -281,6 +280,23 @@ public class Controller {
                             if(model.getJaqueNegro() && player2Turn){
                                 view.mostrarMensajeTemporal("JAQUE AL REI NEGRO",1000);
                             }   
+                            if(gameOver){
+                                //Repetir partida
+                                int option = JOptionPane.showOptionDialog(null, "¿Qué deseas hacer?", "Fin de la partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Volver a jugar", "Ver repetición"}, null);
+
+                                if (option == JOptionPane.YES_OPTION) {
+                                    // Volver a jugar
+                                    // Aquí debes reiniciar el juego o realizar las acciones necesarias para comenzar una nueva partida
+                                    view.setVisible(false);
+                                    Controller controller = new Controller(opcionJaque);
+
+                                } else if (option == JOptionPane.NO_OPTION) {
+                                    // Ver repetición
+                                    // Aquí debes implementar la lógica para mostrar la repetición de la partida
+                                }
+                                
+
+                            }
                         }                     
                         }
                     }
