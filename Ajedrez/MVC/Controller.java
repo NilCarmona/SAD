@@ -306,22 +306,15 @@ public class Controller {
         }            
 
         }
-
         public void promocionPeon(){
-            if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[P]")&& filaDestino == 0){
-                //escojer
-                //view.....(menu)
+            if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[P]")&& filaDestino == 0){                
                 int choice = 0;
-                if(damaBlancaMuerta){
-                    //escojer
-                    //view.....(menu
+                if(damaBlancaMuerta){                    
                     String[] options = {"DAMA", "CABALLO", "ALFIL", "TORRE"};
-                    choice = view.mostrarPromocion(options);                    
-                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);                                 
                 }else{
                     String[] options = {"CABALLO", "ALFIL", "TORRE"};
-                    choice = view.mostrarPromocion(options);
-                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);                    
                 }
 
                 if (choice == 0) {
@@ -369,24 +362,17 @@ public class Controller {
                 
             
         }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[p]")&& filaDestino == 7){
-                //escojer
-                //view.....(menu)
-                int choice = 0;
-                //int choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-                if(damaNegraMuerta){
-                    //escojer
-                    //view.....(menu
+                //escojer                
+                int choice = 0;                
+                if(damaNegraMuerta){                    
                     String[] options = {"DAMA", "CABALLO", "ALFIL", "TORRE"};
-                    choice = view.mostrarPromocion(options);
-                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);                    
                 }else{
                     String[] options = {"CABALLO", "ALFIL", "TORRE"};
                     choice = view.mostrarPromocion(options);
-                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                }
-                
-                if (choice == 0) {
-                    // Code for Option 1
+                    
+                }                
+                if (choice == 0) {                    
                     if(damaNegraMuerta){
                         tablero.setElemento(filaDestino, columnaDestino, "d");
                         model.setTablero(tablero);
@@ -409,8 +395,7 @@ public class Controller {
                         view.actualizarTablero(model.getTablero());
                     }
                         
-                } else if (choice == 2) {
-                    // Code for Option 3
+                } else if (choice == 2) {                    
                     if(damaNegraMuerta){
                         tablero.setElemento(filaDestino, columnaDestino, "a");
                         model.setTablero(tablero);
@@ -421,8 +406,7 @@ public class Controller {
                         view.actualizarTablero(model.getTablero());
                     }
                                
-                } else{
-                    // Code for Option 4
+                } else{                    
                     tablero.setElemento(filaDestino, columnaDestino, "t");
                     model.setTablero(tablero);
                     view.actualizarTablero(model.getTablero());
@@ -433,22 +417,22 @@ public class Controller {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            // Empty implementation
+           
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            // Empty implementation
+            
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            // Empty implementation
+            
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            // Empty implementation
+            
         }
     }
 }
