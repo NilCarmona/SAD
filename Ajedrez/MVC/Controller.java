@@ -280,6 +280,7 @@ public class Controller {
                             if(model.getJaqueNegro() && player2Turn){
                                 view.mostrarMensajeTemporal("JAQUE AL REI NEGRO",1000);
                             }   
+                        }
                             if(gameOver){
                                 //Repetir partida
                                 int option = JOptionPane.showOptionDialog(null, "¿Qué deseas hacer?", "Fin de la partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Volver a jugar", "Ver repetición"}, null);
@@ -297,7 +298,7 @@ public class Controller {
                                 
 
                             }
-                        }                     
+                                            
                         }
                     }
                 }
