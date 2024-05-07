@@ -445,7 +445,7 @@ public class Controller {
 
                             }
                             if(opcionJaque){                                
-                            model.check();
+                                model.check();
                             
                             if(model.getJaqueBlanco()){
                                 System.out.println("JAQUE AL BLANCO");

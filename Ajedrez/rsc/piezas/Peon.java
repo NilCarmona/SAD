@@ -16,7 +16,7 @@ public class Peon {
         if(tablero.getElemento(filaOrigen, columnaOrigen)== "P"){
         if (filaOrigen == 6) {
             if (!tablero.getElemento(filaOrigen - 1, columnaOrigen).matches("[ptcadrPTCADR]")) {
-            movimientos[filaOrigen - 1][columnaOrigen] = "verde";
+                movimientos[filaOrigen - 1][columnaOrigen] = "verde";
             if (!tablero.getElemento(filaOrigen - 2, columnaOrigen).matches("[ptcadrPTCADR]")) {
                 movimientos[filaOrigen - 2][columnaOrigen] = "verde";
             }
