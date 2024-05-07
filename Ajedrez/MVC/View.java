@@ -121,10 +121,14 @@ public class View extends JFrame {
         }, tiempo);
         }
         
-    public int mostrarFinPartida(String mensaje) {
+    public int mostrarFinPartida() {
         int option = JOptionPane.showOptionDialog(null, "¿Qué deseas hacer?", "Fin de la partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Volver a jugar", "Ver repetición"}, null);
         return option; 
     }    
+    public int mostrarPromocion(String[] piezas) {
+        int option = JOptionPane.showOptionDialog(null, "¿Qué pieza deseas promocionar?", "Promoción de peón", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, piezas, null);
+        return option;
+    }
     public void addMouseListener(MouseListener listener) {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 8; j++)

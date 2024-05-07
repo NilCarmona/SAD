@@ -283,7 +283,7 @@ public class Controller {
                         }
                             if(gameOver){
                                 //Repetir partida
-                                int option = view.mostrarFinPartida(null);
+                                int option = view.mostrarFinPartida();
 
                                 if (option == 0) {
                                     // Volver a jugar
@@ -316,10 +316,12 @@ public class Controller {
                     //escojer
                     //view.....(menu
                     String[] options = {"DAMA", "CABALLO", "ALFIL", "TORRE"};
-                    choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);                    
+                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 }else{
                     String[] options = {"CABALLO", "ALFIL", "TORRE"};
-                    choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);
+                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 }
 
                 if (choice == 0) {
@@ -375,10 +377,12 @@ public class Controller {
                     //escojer
                     //view.....(menu
                     String[] options = {"DAMA", "CABALLO", "ALFIL", "TORRE"};
-                    choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);
+                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 }else{
                     String[] options = {"CABALLO", "ALFIL", "TORRE"};
-                    choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    choice = view.mostrarPromocion(options);
+                    //choice = JOptionPane.showOptionDialog(null, "Choose an option", "Option Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 }
                 
                 if (choice == 0) {
