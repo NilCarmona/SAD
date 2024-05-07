@@ -106,7 +106,7 @@ public class View extends JFrame {
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
-        public void mostrarMensajeTemporal(String mensaje) {
+    public void mostrarMensajeTemporal(String mensaje, int tiempo) {
         JOptionPane pane = new JOptionPane(mensaje, JOptionPane.INFORMATION_MESSAGE);
         JDialog dialog = pane.createDialog(null, "Mensaje Temporal");
         dialog.setModal(false);
@@ -118,10 +118,10 @@ public class View extends JFrame {
             public void run() {
             dialog.dispose();
             }
-        }, 500);
+        }, tiempo);
         }
         
-        public void addMouseListener(MouseListener listener) {
+    public void addMouseListener(MouseListener listener) {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 8; j++)
 				labels[i][j].addMouseListener(listener);
