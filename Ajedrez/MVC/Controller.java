@@ -17,11 +17,12 @@ public class Controller {
     private boolean gameOver = false; 
     private boolean damaBlancaMuerta = false;
     private boolean damaNegraMuerta = false;
+    boolean opcion;
 
 
     //constructor
-    public Controller() {
-        
+    public Controller(boolean opciones) {
+        opcion = opciones;
         model = new Model();
         view = new View();
         labels = view.getLabels(); //labels temporales
@@ -443,6 +444,7 @@ public class Controller {
                                     }                               
 
                             }
+                            if(opcion){                                
                             model.check();
                             
                             if(model.getJaqueBlanco()){
@@ -450,7 +452,8 @@ public class Controller {
                             }
                             if(model.getJaqueNegro()){
                                 System.out.println("JAQUE Al NEGRO");
-                            }                        
+                            }   
+                        }                     
                         }
                     }
                 }
