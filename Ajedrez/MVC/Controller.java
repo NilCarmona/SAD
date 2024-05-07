@@ -17,12 +17,12 @@ public class Controller {
     private boolean gameOver = false; 
     private boolean damaBlancaMuerta = false;
     private boolean damaNegraMuerta = false;
-    boolean opcion;
+    boolean opcionJaque;
 
 
     //constructor
-    public Controller(boolean opciones) {
-        opcion = opciones;
+    public Controller(boolean opcionJaques) {
+        opcionJaque = opcionJaques;
         model = new Model();
         view = new View();
         labels = view.getLabels(); //labels temporales
@@ -444,7 +444,7 @@ public class Controller {
                                     }                               
 
                             }
-                            if(opcion){                                
+                            if(opcionJaque){                                
                             model.check();
                             
                             if(model.getJaqueBlanco()){

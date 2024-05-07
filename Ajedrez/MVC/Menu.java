@@ -10,13 +10,13 @@ import java.net.URL;
 public class Menu {    
     //variables
     boolean jugar;
-    boolean opciones;
+    boolean opcionJaque;
     boolean normas;
     Controller controller;
     //constructor
         public Menu() {
         jugar = false;
-        opciones = false;
+        opcionJaque = false;
         normas = false;
         
         createAndShowGUI();       
@@ -33,7 +33,7 @@ public class Menu {
         panel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 filas, 1 columna
 
         JButton botonGrande = createStyledButton("¡Jugar!", 24, Color.decode("#2ecc71"), Color.WHITE);
-        JButton botonMediano = createStyledButton("Opciones Desactivadas", 18, Color.decode("#3498db"), Color.WHITE);
+        JButton botonMediano = createStyledButton("Jaques Desactivados", 18, Color.decode("#3498db"), Color.WHITE);
         JButton botonPequeno = createStyledButton("Normas del Ajedrez", 14, Color.decode("#e74c3c"), Color.WHITE);
 
         botonGrande.setPreferredSize(new Dimension(200, 100)); // Tamaño personalizado para el botón grande
@@ -55,7 +55,7 @@ public class Menu {
                 System.out.println("¡Jugar!");
                 jugar = true;
                 frame.setVisible(false);
-                controller = new Controller(opciones);              
+                controller = new Controller(opcionJaque);              
 
             }
         });
@@ -65,15 +65,15 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 // Acción a realizar cuando se presione el botón mediano
                                
-                if(opciones){
-                    opciones = false;
+                if(opcionJaque){
+                    opcionJaque = false;
                 }else{
-                    opciones = true;
+                    opcionJaque = true;
                 }
-                if(opciones){
-                    botonMediano.setText("Opciones Activadas");
+                if(opcionJaque){
+                    botonMediano.setText("Jaques Activados");
                 }else{
-                    botonMediano.setText("Opciones Desactivadas");
+                    botonMediano.setText("Jaques Desactivados");
                 }   
                 
 
