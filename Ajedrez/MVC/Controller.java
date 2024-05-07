@@ -18,6 +18,8 @@ public class Controller {
     private boolean damaBlancaMuerta = false;
     private boolean damaNegraMuerta = false;
     boolean opcionJaque;
+    String [][] tableros;
+    int turno;
     //constructor
     public Controller(boolean opcionJaques) {
         opcionJaque = opcionJaques;
@@ -28,7 +30,8 @@ public class Controller {
         tablero = model.getTablero();
         view.actualizarTablero(tablero);
         view.addMouseListener(new MiMouseListener()); //añadir listener a la vista
-                
+        tableros = new String [100][64]; 
+        turno = 0;    
     }
     //LOGICA DE LOS LISTENERS DE MOUSE (MOUSELISTENER) 
     private class MiMouseListener implements MouseListener {
@@ -212,8 +215,17 @@ public class Controller {
                                                 damaNegraMuerta = true;                                                
                                             }
                                         }
-                                        //MOVER PIEZA
+                                        //MOVER PIEZA                                        
                                         moverPieza(filaOrigen, columnaOrigen, filaDestino, columnaDestino, tablero);
+                                        int u = 0;
+                                        for (int n = 0; n < 8; n++) {
+                                            for (int m = 0; m < 8; m++) {       
+
+                                                tableros[turno][u] =  model.getTablero().getElemento(n, m);
+                                                u++;
+                                            }
+                                        }
+                                        turno++;
                                     }
                                     else{                                        
                                         view.mostrarMensajeTemporal("Movimiento invalido",750);
@@ -236,7 +248,17 @@ public class Controller {
                                                 damaBlancaMuerta = true;                                                 
                                             }
                                         }
+                                        
                                         moverPieza(filaOrigen, columnaOrigen, filaDestino, columnaDestino, tablero);
+                                        int u = 0;
+                                        for (int n = 0; n < 8; n++) {
+                                            for (int m = 0; m < 8; m++) {       
+
+                                                tableros[turno][u] =  model.getTablero().getElemento(n, m);
+                                                u++;
+                                            }
+                                        }
+                                        turno++;
                                     }
                                     else{                                        
                                         view.mostrarMensajeTemporal("Movimiento invalido", 750);                                       
@@ -268,10 +290,46 @@ public class Controller {
                                     view.setVisible(false);
                                     Controller controller = new Controller(opcionJaque);
 
-                                } else if (option == 0) {
-                                    // Ver repetición
-                                    // Aquí debes implementar la lógica para mostrar la repetición de la partida
-                                }                        
+                                } else if (option == 1) {
+                                    
+                                    int turnoTmp = turno;          
+                                    view.mostrarMensajeTemporal("Reproduciendo partida", 1000);                          
+                                    
+                                    Thread replayThread = new Thread(() -> {
+                                        try {
+                                           
+                                            int delay = 1500;
+                                            //lo reseteo
+                                            tablero = new Tablero();
+                                            view.actualizarTablero(tablero); 
+                                            Thread.sleep(delay);                                           
+                                            for (int g = 0; g < turnoTmp; g++) {                                                
+                                                int u = 0;
+                                                for (int n = 0; n < 8; n++) {
+                                                    for (int m = 0; m < 8; m++) {
+                                                        if(tableros[g][u]!=null){                                                        
+                                                        tablero.setElemento(n, m, tableros[g][u]);
+                                                            model.setTablero(tablero);
+                                                            view.actualizarTablero(tablero);
+                                                        }else{
+                                                            tablero.setElemento(n, m, "");
+                                                        }
+                                                        u++;
+                                                    }
+                                                }
+                                                view.actualizarTablero(tablero);
+                                                
+                                                Thread.sleep(delay);
+                                            }
+                                            view.mostrarMensaje("Fin de la partida");
+                                        } catch (InterruptedException ex) {
+                                            view.mostrarMensaje("Error al reproducir la partida");
+                                        }
+                                    });
+
+                                    replayThread.start();
+                                    
+                                }                                                        
 
                             }
                                             
