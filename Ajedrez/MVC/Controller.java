@@ -283,15 +283,15 @@ public class Controller {
                         }
                             if(gameOver){
                                 //Repetir partida
-                                int option = JOptionPane.showOptionDialog(null, "¿Qué deseas hacer?", "Fin de la partida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Volver a jugar", "Ver repetición"}, null);
+                                int option = view.mostrarFinPartida(null);
 
-                                if (option == JOptionPane.YES_OPTION) {
+                                if (option == 0) {
                                     // Volver a jugar
                                     // Aquí debes reiniciar el juego o realizar las acciones necesarias para comenzar una nueva partida
                                     view.setVisible(false);
                                     Controller controller = new Controller(opcionJaque);
 
-                                } else if (option == JOptionPane.NO_OPTION) {
+                                } else if (option == 0) {
                                     // Ver repetición
                                     // Aquí debes implementar la lógica para mostrar la repetición de la partida
                                 }
