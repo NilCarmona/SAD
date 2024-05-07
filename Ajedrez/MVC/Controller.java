@@ -75,12 +75,10 @@ public class Controller {
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
                                     view.setLabels(labels);                              
                                     
-                                    //POSIBLES PIEZAS
-                                   
+                                    //POSIBLES PIEZAS                                   
                                     switch(model.getTablero().getElemento(i, j)){
                                         case "P":
-                                             pintarMovimientos = model.peonB.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());   
-                                            
+                                             pintarMovimientos = model.peonB.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());                                           
                                              break;
                                         case "T":
                                             pintarMovimientos = model.torreB.posiblesMovimientosTorre(filaOrigen, columnaOrigen,model.getTablero());
@@ -119,8 +117,7 @@ public class Controller {
                                     
                                     switch(model.getTablero().getElemento(i, j)){
                                         case "p":                                            
-                                            pintarMovimientos = model.peonN.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());
-                                            
+                                            pintarMovimientos = model.peonN.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());                                            
                                             break;                                        
                                         case "t":
                                             pintarMovimientos = model.torreN.posiblesMovimientosTorre(filaOrigen, columnaOrigen, model.getTablero());
@@ -129,7 +126,7 @@ public class Controller {
                                             pintarMovimientos = model.caballoN.posiblesMovimientosCaballo(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                         case "a":                                            
-                                            pintarMovimientos=model.alfilN.posiblesMovimientosAlfil(filaOrigen, columnaOrigen, model.getTablero());
+                                            pintarMovimientos = model.alfilN.posiblesMovimientosAlfil(filaOrigen, columnaOrigen, model.getTablero());
                                             break;
                                         case "d":
                                             pintarMovimientos = model.damaN.posiblesMovimientosDama(filaOrigen, columnaOrigen, model.getTablero());
@@ -332,15 +329,13 @@ public class Controller {
                 if (choice == 0) {                    
                     if(damaNegraMuerta){
                         setActualizar("d");
-                        damaNegraMuerta = false; 
-
+                        damaNegraMuerta = false;
                     }else if(!damaNegraMuerta){
                         setActualizar("c");
                     }
                 } else if (choice == 1) {
                     if(damaNegraMuerta){
-                        setActualizar("t");
-              
+                        setActualizar("t");              
                     }else if(!damaNegraMuerta){
                         setActualizar("a");
                     }                        
@@ -352,7 +347,7 @@ public class Controller {
                     }                               
                 } else{                    
                     setActualizar("t");
-                }                     
+                }                 
 
         }
         }
