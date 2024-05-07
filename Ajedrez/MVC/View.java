@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class View extends JFrame {
 
@@ -101,7 +103,25 @@ public class View extends JFrame {
         }
     }
     
-    public void addMouseListener(MouseListener listener) {
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }
+        public void mostrarMensajeTemporal(String mensaje) {
+        JOptionPane pane = new JOptionPane(mensaje, JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = pane.createDialog(null, "Mensaje Temporal");
+        dialog.setModal(false);
+        dialog.setVisible(true);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+            dialog.dispose();
+            }
+        }, 500);
+        }
+        
+        public void addMouseListener(MouseListener listener) {
 		for (int i = 0; i < 8; i++)
 			for (int j = 0; j < 8; j++)
 				labels[i][j].addMouseListener(listener);

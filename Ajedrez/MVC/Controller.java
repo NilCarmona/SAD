@@ -55,7 +55,6 @@ public class Controller {
                     if (view.getLabels()[i][j] == e.getSource()) {
                         //1 CLICK: ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) TENER EN CUENTA LOS BORDES
                         if (filaOrigen == -1 && columnaOrigen == -1 || ((model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")) && view.getLabels()[i][j].getBackground() != Color.RED)) {
-                            System.out.println("PRIMER CLICK: " + i + ", " + j);
                             //para resetear cuando cancelo mov
                             for (int k = 0; k < 8; k++) {
                                 for (int l = 0; l < 8; l++) {
@@ -69,7 +68,7 @@ public class Controller {
                                 }
                             }
                             if(player1Turn){
-                                System.out.println("Turno de blancas");
+                                //System.out.println("Turno de blancas");
                                 if (model.getTablero().getElemento(i,j).matches("[PTCADR]")) {
                                     filaOrigen = i;
                                     columnaOrigen = j;
@@ -101,17 +100,15 @@ public class Controller {
                                     }
     
                                 }
-                                else if(model.getTablero().getElemento(i, j).matches("[ptcadr]")){
-                                    System.out.println("Es turno de blancas");
-                                    
+                                else if(model.getTablero().getElemento(i, j).matches("[ptcadr]")){                                   
+                                    view.mostrarMensaje("Es turno de blancas");                                    
                                 }
-                                else {
-                                    System.out.println("No hay piezas en esa posicion");
+                                else {                                    
+                                    view.mostrarMensaje("No hay piezas en esa posicion");
                                 }
                                 
                             }
-                            else if(player2Turn){
-                                System.out.println("Turno de negras");
+                            else if(player2Turn){                                
                                 if (model.getTablero().getElemento(i,j).matches("[ptcadr]")) {
                                     filaOrigen = i;
                                     columnaOrigen = j;
@@ -143,12 +140,11 @@ public class Controller {
                                     }
     
                                 }
-                                else if(model.getTablero().getElemento(i,j).matches("[PTCADR]")){
-                                    System.out.println("Es turno de negras");
-                                    
+                                else if(model.getTablero().getElemento(i,j).matches("[PTCADR]")){                                    
+                                    view.mostrarMensaje("Es turno de negras");                                    
                                 }
-                                else {
-                                    System.out.println("No hay piezas en esa posicion");
+                                else {                                    
+                                    view.mostrarMensaje("No hay piezas en esa posicion");
                                 }                                
                             }
                         //pintar los movimientos almacenados en pintarMovimientos
@@ -173,10 +169,10 @@ public class Controller {
                         }                    
 
                         if(model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")){
-                            System.out.println("Pieza seleccionada: " + model.getTablero().getElemento(i, j));
+                            //System.out.println("Pieza seleccionada: " + model.getTablero().getElemento(i, j));
                         }
-                        else{
-                            System.out.println("No hay pieza seleccionada");
+                        else{                            
+                            view.mostrarMensaje("No hay pieza seleccionada");
                         }
                         labels[i][j].setBackground(Color.YELLOW);
                         //DECIRLE A LA VIEW QUE ACTUALICE LOS LABELS
@@ -184,11 +180,10 @@ public class Controller {
 
                         //2 clikc: AQUI ES PARA EL MOVIMIENTO
 
-                        }else if ( filaOrigen != -1 && columnaOrigen != -1){
-                            System.out.println("SEGUNDO CLICK: " + i + ", " + j);
+                        }else if ( filaOrigen != -1 && columnaOrigen != -1){                            
                             //cancelar movimiento
-                            if (filaOrigen == i && columnaOrigen == j) {
-                            System.out.println("Cancelar movimiento");
+                            if (filaOrigen == i && columnaOrigen == j) {                            
+                            view.mostrarMensajeTemporal("Movimiento cancelado");
                             filaOrigen = -1;
                             columnaOrigen = -1;                            
                             //tengo que resetear los colores
@@ -202,8 +197,7 @@ public class Controller {
                                 }
                             }                          
                             
-                            }else{ //mover pieza
-                            System.out.println("Mover a: " + i + ", " + j);
+                            }else{ //mover pieza                            
                             //guardar destino
                             filaDestino = i;
                             columnaDestino = j;
@@ -214,7 +208,7 @@ public class Controller {
                                     if (view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.GREEN || view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED) {
                                         if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){                                            
                                             //MATAR pieza
-                                            System.out.println("COMER PIEZA");
+                                            view.mostrarMensajeTemporal("eliminando pieza");
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[r]")){
                                                 System.out.println("GAME OVER, GANA BLANCAS");
                                                 gameOver = true;
@@ -234,28 +228,26 @@ public class Controller {
                                         player1Turn = false;
                                         player2Turn = true;
                                     }
-                                    else{
-                                        System.out.println("Movimiento invalido");
+                                    else{                                        
+                                        view.mostrarMensajeTemporal("Movimiento invalido");
                                     }                 
                                     
                                 }
                                 else{
-                                    System.out.println("Es turno de blancas");
+                                    view.mostrarMensaje("Es turno de blancas");
                                 }
                             }
                             else if(player2Turn){
                                 if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[ptcadr]")) {
                                     //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
                                     if (view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.GREEN || view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED) {
-                                        if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){
-                                            
-                                            //comer pieza
-                                            System.out.println("COMER PIEZA");
+                                        if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){                                           
+                                                                                        
+                                            view.mostrarMensajeTemporal("eliminando pieza");
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[R]")){
                                                 System.out.println("GAME OVER, GANA NEGRAS");
                                                  //IMPLEMENTAR MENU ETC...
-                                            }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[D]")){
-                                                System.out.println("DAMA BLANCA MUERTA");
+                                            }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[D]")){                                                
                                                 damaBlancaMuerta = true;                                                 
                                             }
                                         }
@@ -270,11 +262,11 @@ public class Controller {
                                         player2Turn = false;
                                         player1Turn = true;
                                     }
-                                    else{
-                                        System.out.println("Movimiento invalido");                                       
+                                    else{                                        
+                                        view.mostrarMensajeTemporal("Movimiento invalido");                                       
                                     }                                
                                 }else{
-                                    System.out.println("Es turno de negras");
+                                    view.mostrarMensaje("Es turno de negras");
                                 }                           
                             }
                             //FUNCION PROMOCION DE PEON
@@ -399,10 +391,11 @@ public class Controller {
                                 model.check();
                             
                             if(model.getJaqueBlanco()){
-                                System.out.println("JAQUE AL BLANCO");
+                                view.mostrarMensaje("JAQUE AL REI BLANCO");
+                                
                             }
                             if(model.getJaqueNegro()){
-                                System.out.println("JAQUE Al NEGRO");
+                                view.mostrarMensaje("JAQUE AL REI NEGRO");
                             }   
                         }                     
                         }
