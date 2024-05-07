@@ -18,8 +18,6 @@ public class Controller {
     private boolean damaBlancaMuerta = false;
     private boolean damaNegraMuerta = false;
     boolean opcionJaque;
-
-
     //constructor
     public Controller(boolean opcionJaques) {
         opcionJaque = opcionJaques;
@@ -39,11 +37,10 @@ public class Controller {
         private int filaDestino = -1;
         private int columnaDestino = -1;
 
-        String [][] pintarMovimientos;
-        
+        String [][] pintarMovimientos;        
     
         public MiMouseListener() {
-            // Empty implementation
+            
         }
         public MiMouseListener(int filaOrigen, int columnaOrigen) {
             this.filaOrigen = filaOrigen;
@@ -52,12 +49,10 @@ public class Controller {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            // Lógica para manejar el clic en la JLabel
-            
+                      
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (view.getLabels()[i][j] == e.getSource()) {
-                        //ESTO DEBERIA ESTAR EN EL CONTROLADOR PERO LOS PRINTS COMO VIEW Y LOS MOVIMIENTOS COMO MODEL
                         //1 CLICK: ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) TENER EN CUENTA LOS BORDES
                         if (filaOrigen == -1 && columnaOrigen == -1 || ((model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")) && view.getLabels()[i][j].getBackground() != Color.RED)) {
                             System.out.println("PRIMER CLICK: " + i + ", " + j);
@@ -66,11 +61,10 @@ public class Controller {
                                 for (int l = 0; l < 8; l++) {
                                     if ((k + l) % 2 == 0) {
                                         labels[k][l].setBackground(Color.WHITE);
-                                        //view.setLabels(labels);
-                                        //view.getLabels()[k][l].setBackground(Color.GRAY);
+                                        view.setLabels(labels);
                                     }else{
                                         labels[k][l].setBackground(Color.GRAY);
-                                        //view.setLabels(labels);
+                                        view.setLabels(labels);
                                     }
                                 }
                             }
@@ -79,12 +73,10 @@ public class Controller {
                                 if (model.getTablero().getElemento(i,j).matches("[PTCADR]")) {
                                     filaOrigen = i;
                                     columnaOrigen = j;
-                                    //VIEW
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
-                                    //view.setLabels(labels);
-                                    //view.getLabels()[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
+                                    view.setLabels(labels);                              
                                     
-                                    //POSIBLES MOVIMIENTOS
+                                    //POSIBLES PIEZAS
                                    
                                     switch(model.getTablero().getElemento(i, j)){
                                         case "P":
@@ -124,10 +116,10 @@ public class Controller {
                                     filaOrigen = i;
                                     columnaOrigen = j;
                                     labels[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
-                                    //view.setLabels(labels);
-                                    //view.getLabels()[filaOrigen][columnaOrigen].setBackground(Color.YELLOW);
-                                    //POSIBLES MOVIMIENTOS
-                                    //model.posiblesMovimientos(tablero.getElemento(filaOrigen, columnaOrigen));
+                                    view.setLabels(labels);
+                                    
+                                    //POSIBLES PIEZAS
+                                    
                                     switch(model.getTablero().getElemento(i, j)){
                                         case "p":                                            
                                             pintarMovimientos = model.peonN.posiblesMovimientosPeon(filaOrigen, columnaOrigen, model.getTablero());
@@ -157,45 +149,28 @@ public class Controller {
                                 }
                                 else {
                                     System.out.println("No hay piezas en esa posicion");
-                                }
-
-                                
+                                }                                
                             }
                         //pintar los movimientos almacenados en pintarMovimientos
                         for (int k = 0; k < 8; k++) {
                             for (int l = 0; l < 8; l++) {                                
 
-                                if (pintarMovimientos[k][l] == "verde") {
-                                    //view.getLabels()[k][l].setBackground(Color.GREEN);
-                                    //pintarMovimientos[k][l]=null;
-                                    labels[k][l].setBackground(Color.GREEN);
-                                    //view.setLabels(labels);
-
+                                if (pintarMovimientos[k][l] == "verde") {                                    
+                                    labels[k][l].setBackground(Color.GREEN);                                    
+                                    pintarMovimientos[k][l]=null;                                    
+                                } else if (pintarMovimientos[k][l] == "rojo") {                                    
+                                    labels[k][l].setBackground(Color.RED);                                   
                                     pintarMovimientos[k][l]=null;
-                                    
-                                } else if (pintarMovimientos[k][l] == "rojo") {
-                                    //view.getLabels()[k][l].setBackground(Color.RED);
-                                    //pintarMovimientos[k][l]=null;
-                                    labels[k][l].setBackground(Color.RED);
-                                    //view.setLabels(labels);
-                                    pintarMovimientos[k][l]=null;
-
-                                }else{
-                                                                       
-                                    if ((k + l) % 2 == 0) {//pintar los cuadros
-                                    //view.getLabels()[k][l].setBackground(Color.WHITE);
-                                    labels[k][l].setBackground(Color.WHITE);
-                                    //view.setLabels(labels);
-                                    
+                                }else{ //pintar los otros cuadros como siempre                                                  
+                                    if ((k + l) % 2 == 0) {                                     
+                                    labels[k][l].setBackground(Color.WHITE);                                    
                                 } else {
-                                    labels[k][l].setBackground(Color.GRAY);
-                                    //view.setLabels(labels);
+                                    labels[k][l].setBackground(Color.GRAY);                                    
                                 }
 
                                 }
                             }
-                        }
-                        //model.movimientos= null;
+                        }                    
 
                         if(model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")){
                             System.out.println("Pieza seleccionada: " + model.getTablero().getElemento(i, j));
@@ -204,60 +179,51 @@ public class Controller {
                             System.out.println("No hay pieza seleccionada");
                         }
                         labels[i][j].setBackground(Color.YELLOW);
-
+                        //DECIRLE A LA VIEW QUE ACTUALICE LOS LABELS
                         view.setLabels(labels);
 
                         //2 clikc: AQUI ES PARA EL MOVIMIENTO
 
                         }else if ( filaOrigen != -1 && columnaOrigen != -1){
                             System.out.println("SEGUNDO CLICK: " + i + ", " + j);
-                            //cancelar mov (posible otra implementacion)
+                            //cancelar movimiento
                             if (filaOrigen == i && columnaOrigen == j) {
                             System.out.println("Cancelar movimiento");
                             filaOrigen = -1;
-                            columnaOrigen = -1;
-                            
+                            columnaOrigen = -1;                            
                             //tengo que resetear los colores
                             for (int k = 0; k < 8; k++) {
                                 for (int l = 0; l < 8; l++) {
-                                    if ((k + l) % 2 == 0) {
-                                        //view.getLabels()[k][l].setBackground(Color.WHITE);
-                                        labels[k][l].setBackground(Color.WHITE);
-                                        //view.setLabels(labels);
-                                        
+                                    if ((k + l) % 2 == 0) {                                        
+                                        labels[k][l].setBackground(Color.WHITE);                                    
                                     } else {
-                                        labels[k][l].setBackground(Color.GRAY);
-                                        //view.setLabels(labels);
+                                        labels[k][l].setBackground(Color.GRAY);                                        
                                     }
                                 }
-                            }              
+                            }                          
                             
-                            
-                            }else{
+                            }else{ //mover pieza
                             System.out.println("Mover a: " + i + ", " + j);
+                            //guardar destino
                             filaDestino = i;
                             columnaDestino = j;
 
                             if(player1Turn){
-                                if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[PTCADR]")) {
-                                    //model.moverPieza(filaOrigen, columnaOrigen,filaDestino , columnaDestino);
+                                if (model.getTablero().getElemento(filaOrigen, columnaOrigen).matches("[PTCADR]")) {                                    
                                     //unicamente moverme a lo verde o rojo
                                     if (view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.GREEN || view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED) {
-                                        if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){
-                                            
-                                            //comer pieza
+                                        if(view.getLabels()[filaDestino][columnaDestino].getBackground() == Color.RED){                                            
+                                            //MATAR pieza
                                             System.out.println("COMER PIEZA");
                                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[r]")){
                                                 System.out.println("GAME OVER, GANA BLANCAS");
+                                                gameOver = true;
                                                 //IMPLEMENTAR MENU ETC...
                                             }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[d]")){
-                                                System.out.println("DAMA NEGRA MUERTA");
-                                                damaNegraMuerta = true;
-                                                //IMPLEMENTAR MENU ETC...
+                                                damaNegraMuerta = true;                                                
                                             }
-                                            
-
                                         }
+                                        //HACER FUNCION MOVER PIEZA
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
                                         model.setTablero(tablero);
@@ -270,15 +236,11 @@ public class Controller {
                                     }
                                     else{
                                         System.out.println("Movimiento invalido");
-                                        
-
-                                    }
-                                                                    
+                                    }                 
                                     
                                 }
                                 else{
                                     System.out.println("Es turno de blancas");
-
                                 }
                             }
                             else if(player2Turn){
@@ -294,14 +256,10 @@ public class Controller {
                                                  //IMPLEMENTAR MENU ETC...
                                             }else if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[D]")){
                                                 System.out.println("DAMA BLANCA MUERTA");
-                                                damaBlancaMuerta = true;
-
-                                                 //IMPLEMENTAR MENU ETC...
+                                                damaBlancaMuerta = true;                                                 
                                             }
-
-                                            
-
                                         }
+                                        //HACER FUNCION MOVER PIEZA
                                         tablero.setElemento(filaDestino, columnaDestino, tablero.getElemento(filaOrigen, columnaOrigen));
                                         tablero.setElemento(filaOrigen, columnaOrigen, "");
                                         model.setTablero(tablero);
@@ -313,20 +271,13 @@ public class Controller {
                                         player1Turn = true;
                                     }
                                     else{
-                                        System.out.println("Movimiento invalido");
-                                        
-                                    }
-                                
-                                }
-                                
-                                else{
+                                        System.out.println("Movimiento invalido");                                       
+                                    }                                
+                                }else{
                                     System.out.println("Es turno de negras");
-                                }
-                            
-                                
-                            
+                                }                           
                             }
-                            //PROMOCION DE PEON
+                            //FUNCION PROMOCION DE PEON
                             if(model.getTablero().getElemento(filaDestino, columnaDestino).matches("[P]")&& filaDestino == 0){
                                     //escojer
                                     //view.....(menu)
