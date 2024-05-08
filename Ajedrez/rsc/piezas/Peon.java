@@ -62,5 +62,8 @@ public class Peon {
 
     }
 
+    public String getColor(){
+        return color;
+    }
     
 }

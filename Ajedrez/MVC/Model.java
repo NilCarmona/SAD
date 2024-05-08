@@ -86,7 +86,8 @@ public class Model {
         jaqueNegro = false;
 
         for (int k = 0; k < 8; k++) {
-            for (int l = 0; l < 8; l++) {                                   
+            for (int l = 0; l < 8; l++) {   
+            //FER POSIBLECHECK PER A TOTES LES PECES                               
             posibleCheck = peonB.posiblesMovimientosPeon(l, k, tablero);            
             if (posibleCheck[reyBY][reyBX] == "rojo") {
                 jaqueBlanco = true;                                                             

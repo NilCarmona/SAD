@@ -17,10 +17,8 @@ public class Menu {
         public Menu() {
         jugar = false;
         opcionJaque = false;
-        normas = false;
-        
-        createAndShowGUI();       
-
+        normas = false;        
+        createAndShowGUI();
     }
 
     private void createAndShowGUI() {
@@ -50,9 +48,7 @@ public class Menu {
         // Agregar listeners a los botones
         botonGrande.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // Acción a realizar cuando se presione el botón grande
-                System.out.println("¡Jugar!");
+            public void actionPerformed(ActionEvent e) {                                
                 jugar = true;
                 frame.setVisible(false);
                 controller = new Controller(opcionJaque);              
@@ -63,7 +59,6 @@ public class Menu {
         botonMediano.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Acción a realizar cuando se presione el botón mediano
                                
                 if(opcionJaque){
                     opcionJaque = false;

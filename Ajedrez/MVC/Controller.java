@@ -30,7 +30,7 @@ public class Controller {
         tablero = model.getTablero();
         view.actualizarTablero(tablero);
         view.addMouseListener(new MiMouseListener()); //añadir listener a la vista
-        tableros = new String [100][64]; 
+        tableros = new String [1000][64]; 
         turno = 0;    
     }
     //LOGICA DE LOS LISTENERS DE MOUSE (MOUSELISTENER) 
@@ -56,7 +56,7 @@ public class Controller {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (view.getLabels()[i][j] == e.getSource()) {
-                        //1 CLICK: ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) TENER EN CUENTA LOS BORDES
+                        //1 CLICK: ESTO ES PARA LOS POSIBLES MOVIMIENTOS (VERDES Y ROJOS) 
                         if (filaOrigen == -1 && columnaOrigen == -1 || ((model.getTablero().getElemento(i, j).matches("[ptcadrPTCADR]")) && view.getLabels()[i][j].getBackground() != Color.RED)) {
                             //para resetear cuando cancelo mov
                             for (int k = 0; k < 8; k++) {
@@ -71,7 +71,6 @@ public class Controller {
                                 }
                             }
                             if(player1Turn){
-                                //System.out.println("Turno de blancas");
                                 if (model.getTablero().getElemento(i,j).matches("[PTCADR]")) {
                                     filaOrigen = i;
                                     columnaOrigen = j;
@@ -178,7 +177,7 @@ public class Controller {
                         //DECIRLE A LA VIEW QUE ACTUALICE LOS LABELS
                         view.setLabels(labels);
 
-                        //2 clikc: AQUI ES PARA EL MOVIMIENTO
+                        //2 click: AQUI ES PARA EL MOVIMIENTO
                         }else if ( filaOrigen != -1 && columnaOrigen != -1){                            
                             //cancelar movimiento
                             if (filaOrigen == i && columnaOrigen == j) {                      
@@ -219,7 +218,7 @@ public class Controller {
                                         moverPieza(filaOrigen, columnaOrigen, filaDestino, columnaDestino, tablero);
                                         int u = 0;
                                         for (int n = 0; n < 8; n++) {
-                                            for (int m = 0; m < 8; m++) {       
+                                            for (int m = 0; m < 8; m++) {  
 
                                                 tableros[turno][u] =  model.getTablero().getElemento(n, m);
                                                 u++;
@@ -281,12 +280,11 @@ public class Controller {
                             }   
                         }
                             if(gameOver){
-                                //Repetir partida
+                                //Reproducir partida o volver a jugar
                                 int option = view.mostrarFinPartida();
 
                                 if (option == 0) {
-                                    // Volver a jugar
-                                    // Aquí debes reiniciar el juego o realizar las acciones necesarias para comenzar una nueva partida
+                                    // Volver a jugar                                    
                                     view.setVisible(false);
                                     Controller controller = new Controller(opcionJaque);
 

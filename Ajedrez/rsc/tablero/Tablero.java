@@ -10,9 +10,8 @@ public class Tablero {
         {"", "", "", "", "", "", "", ""},
         {"", "", "", "", "", "", "", ""},
         {"P", "P", "P", "P", "P", "P", "P", "P"},
-        {"T", "C", "A", "D", "R", "A", "C", "T"}
+        {"T", "C", "A", "D", "R", "A", "C", "T"}    
     };
-
     public Tablero() {
         casillas = new Casilla[8][8];
         for (int fila = 0; fila < 8; fila++) {
@@ -29,7 +28,6 @@ public class Tablero {
             }
         }
     }
-
     public String getElemento(int fila, int columna) {
         if(fila < 0 || fila > 7 || columna < 0 || columna > 7) {
             return "";
@@ -38,7 +36,6 @@ public class Tablero {
         }
         
     }
-
     public void setElemento(int fila, int columna, String valor) {
         casillas[fila][columna].setValor(valor);
     }
