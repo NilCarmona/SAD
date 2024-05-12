@@ -1,11 +1,9 @@
 # SAD
-AJEDREZ:
--Implementada la futura estructura del proyecto.
--Implementado un Main.java que instancia la Interfaz (View.java)
--De momento todo el programa esta en View.java para las pruebas (comentado las partes que van a ir a Controller.java y Model.java).
--Implementado posibles movimientos y movimiento del Peon.
--Implementados Turnos
--Descargados todos los recursos en rsc->Images
+Aquesta es una assignatura de la carrera de Telecomunicacions
+
+S'estructura en tres practiques i un projecte, en aquest cas l'implementacio del joc d'escacs en Java
+
+En els archius README del projecte i cada practica esta detallada la estructura i funcionament d'aquests
 
 
 
