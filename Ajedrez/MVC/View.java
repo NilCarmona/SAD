@@ -22,7 +22,8 @@ public class View extends JFrame { //Vista marco de la aplicación
         setResizable(false);
         setSize(600, 600);
         setLocationRelativeTo(null);
-        labels = new JLabel[FILAS][COLUMNAS];
+        labels = new JLabel[FILAS][COLUMNAS];       
+        
 
         // Inicializa la matriz de JLabel
         for (int fila = 0; fila < FILAS; fila++) {

@@ -1,5 +1,5 @@
 
-import java.io.*;
+/*import java.io.*;
 
 class TestReadLine {
   public static void main(String[] args) {
@@ -13,4 +13,4 @@ class TestReadLine {
     } catch (IOException e) { e.printStackTrace(); }
     System.out.println("\nline is: " + str);
   }
-}
+}*/
