@@ -15,12 +15,13 @@ public class Cliente {
                 
                 try (BufferedReader keyboardReader = new BufferedReader(new InputStreamReader(System.in))) {
                     String line;
-                    while ((line = keyboardReader.readLine()) != null ) {
-                        socket.writeString(line);
+                    while ((line = keyboardReader.readLine()) != null) {
+                        socket.writeString(line);                        
                         if (line.equals("exit")) {
                             System.exit(0);
                             break;
-                        }                    
+                        }                       
+                                 
                     }
                 } catch (IOException e) {
                     System.err.println("Error reading from keyboard: " + e.getMessage());
