@@ -3,10 +3,8 @@ import java.util.Scanner;
 
 
 public class ClientMain{
-	private static int count = 0;		
-
-	public static void main(String[] args){
-                
+	private static int count = 0;	
+	public static void main(String[] args){                
 		MySocket mSocket = new MySocket("localhost", 1234);
                 Scanner sc= new Scanner(System.in); 
                 System.out.print("Introdueix el teu nom: ");
@@ -15,8 +13,6 @@ public class ClientMain{
 		SwingClient client = new SwingClient(nick, mSocket);
 		sc.close();		
 		client.createAndShowGUI(nick);
-
-
 		// Output Thread
 		new Thread(){
 			public void run(){			
@@ -36,28 +32,20 @@ public class ClientMain{
 					if (count == 60) {
 						mSocket.writeString(nick+": disconnection");						
 						count = 0;
-						client.disconnect();																															
+						client.disconnect();																																				
 					}
-				}
-				
-					 			 
-			}	
-			
+				}					 			 
+			}			
 		}.start();
-
 	    new Thread(){
 			public void run(){
 			String message;	
-			while((message = mSocket.readString()) != null){
-				
+			while((message = mSocket.readString()) != null){				
 				client.addMessage(message);
-				count = 0;				
-																	
+				count = 0;																		
 			}
 		}
-		}.start();
-		
-		
+		}.start();		
 	}
 }
 

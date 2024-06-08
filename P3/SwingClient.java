@@ -1,12 +1,9 @@
 
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
-
 public class SwingClient implements ActionListener {
-
     private Document doc;
     private SimpleAttributeSet attributeSet;
     private JListSW list;
@@ -14,19 +11,14 @@ public class SwingClient implements ActionListener {
     private JButton button;
     private MySocket socket;
     private String name;
-
     private boolean connected = true;    
 
     public SwingClient(String name, MySocket socket) {
         this.socket = socket;
         this.name = name;
     }
-
-
-    public void actionPerformed(ActionEvent event) { 
-        socket.writeString( name + ": connection");
-        connected = true;        
-               
+    public void actionPerformed(ActionEvent event) {         
+        connected = true;               
         String text = message.getText();
         message.setText("");
         if (text.length() > 0) {
@@ -49,16 +41,14 @@ public class SwingClient implements ActionListener {
 
             }else{        
             try {
+                list.removeUser(rcv[0]);
+                list.addUser(rcv[0]+ " (online)");                                
                 doc.insertString(doc.getLength(), rcv[0] + ": " + rcv[1] + "\n", attributeSet);
             } catch (BadLocationException e) {
                 System.out.println("Error. Message not valid.");
             }
-        }
-        
-        
-    }
-
-    
+        }      
+    }    
     public void createAndShowGUI(String name) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -84,16 +74,14 @@ public class SwingClient implements ActionListener {
         out.add(jscroll);
         JPanel inp = new JPanel();
         inp.setLayout(new BoxLayout(inp, BoxLayout.LINE_AXIS));
-        message = new JTextField(30);
-        
+        message = new JTextField(30);        
         button = new JButton("Enviar");
         message.addActionListener(this);
         button.addActionListener(this);
         inp.add(message);
         inp.add(button);
         frame.add(out, BorderLayout.CENTER);
-        frame.add(inp, BorderLayout.PAGE_END);
-    
+        frame.add(inp, BorderLayout.PAGE_END);    
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -104,9 +92,7 @@ public class SwingClient implements ActionListener {
             System.out.println("Error. Message not valid.");
         }
         list.addUser("Tots els usuaris connectats:");
-        list.addUser(name);    
-           
-    
+        list.addUser(name);     
     }
 
     public boolean isConnected() {
