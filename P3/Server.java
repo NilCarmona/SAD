@@ -1,67 +1,88 @@
-package P3;
 
-import java.lang.Thread;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Server{
-	private static Lock lock = new ReentrantLock();
-	private static HashMap<String, MySocket> users = new HashMap<>();
-	private static final int SERVER_PORT = 12345;
 
-	public static void main(String[] args){
-		MyServerSocket socket = new MyServerSocket(SERVER_PORT);
-		System.out.println("Servidor Arrancado.\nEsperando Usuarios...");
+    private static Selector selector = null;
 
-		while(true){
-			MySocket client = socket.accept();
+    public static void main(String[] args) {
+        try {
+            selector = Selector.open();
+            ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+            serverSocketChannel.socket().bind(new InetSocketAddress("localhost", 1234));
+            serverSocketChannel.configureBlocking(false);
+            int validops = serverSocketChannel.validOps();
+            serverSocketChannel.register(selector, validops, null);
+            System.out.println("Servidor connectat");
+            
+            while (true) {
+                selector.select();
+                Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> i = selectedKeys.iterator();
+                while (i.hasNext()) {
+                    SelectionKey key = i.next();
+                    if (key.isAcceptable()) {                  
+                        newUserAdded_NIO(serverSocketChannel);
+                    }else if (key.isReadable()) {
+                        messageNIO(key);
+                    }
+                    i.remove();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-			new Thread(){
-				public void run(){
-					client.writeString("SERVIDOR: (Información) Si quiere cerrar el chat escriba *EXIT*.");
-					client.writeString("SERVIDOR: Escriba su nombre: ");
-					String user = client.readString();
-					addUser(user, client);
-					String message;
-					
-					while((message = client.readString()) != null){
-						send(message,user);
-						System.out.println(user + ": "+ message);
-						
-						if(message.equals("EXIT")){
-							break;
-						}
-					}
-					remove_user(user);
-					client.close();
-				}
-			}.start();
-		}
-	}
-	public static void send(String message, String user){
-		lock.lock();
-		for(Map.Entry<String, MySocket> entry : users.entrySet()){
-			MySocket mysocket = entry.getValue();
-			if(!user.equals(entry.getKey())){
-				mysocket.writeString(user+": "+message);
-			}
-		}
-		lock.unlock();
-	}
+    private static void newUserAdded_NIO(ServerSocketChannel mySocket) throws IOException {
+        SocketChannel client = mySocket.accept();
+        client.configureBlocking(false);                                    
+        int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;
+        ByteBuffer buffer = ByteBuffer.allocate(4096);
+        client.register(selector, interestSet, buffer);
+    }
 
-	public static void addUser(String user, MySocket mysocket){
-		lock.lock();
-		users.put(user, mysocket);
-		System.out.println( user + " entro en el chat.");
-		lock.unlock();
-	}
+    private static void messageNIO(SelectionKey key) throws IOException {
+        SocketChannel client = (SocketChannel) key.channel();
+        ByteBuffer buffer = (ByteBuffer) key.attachment();
+        int bytes_read = client.read(buffer);
+        buffer.flip();
+        if (bytes_read > 0) {
+            byte[] bytes = new byte[bytes_read];    int i = 0;
+            while(buffer.hasRemaining()){
+                bytes[i] = (byte) buffer.get(); 
+                i++;
+            }
+            String data = new String(bytes);
 
-	public static void remove_user(String user){
-		lock.lock();
-		users.remove(user);
-		System.out.println(user + " salio del chat.");
-		lock.unlock();
-	}
+            System.out.print(data);
+            broadcast(data, key);
+        }
+    }
+
+    private static void broadcast(String data, SelectionKey senderKey){
+        ByteBuffer messageByteBuffer =ByteBuffer.wrap(data.getBytes());
+        for(SelectionKey key : selector.keys()) {
+            try{
+                if(key.isWritable() && (key.channel() instanceof SocketChannel) && !key.equals(senderKey)) {
+                    SocketChannel sChannel=(SocketChannel) key.channel();
+                    sChannel.write(messageByteBuffer);
+                    messageByteBuffer.rewind();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }   
+        }
+    }
+
+   
 }
