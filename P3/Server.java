@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -22,7 +20,7 @@ public class Server{
             serverSocketChannel.configureBlocking(false);
             int validops = serverSocketChannel.validOps();
             serverSocketChannel.register(selector, validops, null);
-            System.out.println("Servidor connectat");
+            System.out.println("Servidor connectat, esperant clients...");
             
             while (true) {
                 selector.select();
