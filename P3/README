@@ -1,0 +1,8 @@
+En la tercera pràctica es programarà el client de Xat amb entorn gràfic Swing.
+Tambe esta fet el OPCIONAL de una solució genèrica per programar servidors dirigits per events basats en selector NIO.
+Estan implementades millores com:
+-Mostrar usuaris online cada 60s que no hagis enviat missatge deixes de estar online pero estas conectat
+-Envies missatge que has sortit del grup cuan envies exit o prems el boto de sortir
+-Al enviar el missatge exit s'actualitzen els usuaris conectats
+-Ventana emergente per posar el nick
+-Al entrar et surten els usuaris que estan al grup gracies a que aquests envien periodicament un missatge de conectat.
