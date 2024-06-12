@@ -1,3 +1,3 @@
-La segona pràctica consisteix en el disseny del client i servidor d'un programa de Xat.En aquesta pràctica es proposa la programació d’una aplicació Xat textual amb servidor centralitzat. El servidor fa un broadcast dels missatges originats per un client a la resta de clients. 
+La segona pràctica consisteix en el disseny del client i servidor d'un programa de Xat.En aquesta pràctica es proposa la programació d’una aplicació Xat textual amb servidor centralitzat.      El servidor fa un broadcast dels missatges originats per un client a la resta de clients. 
 Cada client s’identifica per un nick que s’envia al servidor quan aquest es connecta.
 Inicialitzar el Servidor primer, despres els Clients.
